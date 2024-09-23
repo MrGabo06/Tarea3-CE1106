@@ -62,17 +62,16 @@ sugerir_dieta_por_actividad(NivelActividad, Dieta) :-
     member(NivelActividad, ActividadesRecomendadas),
     !.
 
-% Lista de palabras predefinidas (en átomos)
+% Lista de palabras predefinidas
 palabras_predefinidas([hola, adios, como, estas, cuando]).
 
 % Predicado para verificar si una oración contiene alguna palabra de la lista predefinida
 verificar_palabra :-
     writeln('Por favor, ingresa una oración:'),
     read_line_to_string(user_input, Oracion),       % Lee la oración como un string
-    split_string(Oracion, " ", "", ListaCadenas),   % Divide la oración en cadenas
-    maplist(string_to_atom, ListaCadenas, ListaAtomos),  % Convierte las cadenas en átomos
+    split_string(Oracion, " ", "", ListaPalabras),  % Divide la oración en palabras
     palabras_predefinidas(ListaPredefinida),        % Obtiene la lista de palabras predefinidas
-    ( miembro_de_lista(ListaPredefinida, ListaAtomos) ->  % Verifica si alguna palabra está en la lista
+    ( miembro_de_lista(ListaPredefinida, ListaPalabras) ->  % Verifica si alguna palabra está en la lista
         writeln('Se encontró una palabra de la lista predefinida en la oración.')
     ;   writeln('No se encontró ninguna palabra de la lista predefinida en la oración.')
     ).
