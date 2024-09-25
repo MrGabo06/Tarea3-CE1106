@@ -1,14 +1,16 @@
+% Base de datos de nutricionista
+
 % Tipo de Dieta: nombre, descripción.
-tipo_dieta(keto, 'Dieta cetogénica').
-tipo_dieta(proteica, 'Dieta rica en proteínas').
-tipo_dieta(vegetariana, 'Dieta basada en plantas').
-tipo_dieta(alcalina, 'Dieta que busca equilibrar el pH').
-tipo_dieta(baja_en_grasas, 'Dieta baja en grasas').
-tipo_dieta(vegana, 'Dieta sin productos de origen animal').
-tipo_dieta(mediterranea, 'Dieta inspirada en la cocina tradicional mediterránea').
-tipo_dieta(carnivora, 'Dieta basada en carne y productos animales').
-tipo_dieta(gluten_free, 'Dieta sin gluten').
-tipo_dieta(paleo, 'Dieta basada en alimentos paleolíticos').
+tipo_dieta(keto, 'Dieta cetogénica que limita los carbohidratos para inducir cetosis.').
+tipo_dieta(proteica, 'Dieta rica en proteínas para aumentar la masa muscular.').
+tipo_dieta(vegetariana, 'Dieta basada en plantas, excluyendo carne y pescado.').
+tipo_dieta(alcalina, 'Dieta que busca equilibrar el pH del cuerpo.').
+tipo_dieta(baja_en_grasas, 'Dieta baja en grasas saturadas para controlar el colesterol.').
+tipo_dieta(vegana, 'Dieta sin productos de origen animal, rica en plantas.').
+tipo_dieta(mediterranea, 'Dieta inspirada en la cocina tradicional mediterránea, rica en grasas saludables.').
+tipo_dieta(carnivora, 'Dieta basada en carne y productos animales, excluyendo vegetales.').
+tipo_dieta(gluten_free, 'Dieta sin gluten para personas con intolerancia.').
+tipo_dieta(paleo, 'Dieta basada en alimentos paleolíticos, excluyendo granos y procesados.').
 
 % Padecimiento: nombre, descripción, dietas recomendadas.
 padecimiento(dislipidemia, 'Problemas del control del colesterol', [baja_en_grasas, mediterranea]).
@@ -44,10 +46,18 @@ dieta(dieta_paleo, paleo, 1700, [], [intolerancia_gluten], [], [inicial, avanzad
 % Sugerir una dieta en función del padecimiento.
 sugerir_dieta_por_padecimiento(Padecimiento, Dieta) :-
     padecimiento(Padecimiento, _, DietasRecomendadas),
-    dieta(Dieta, TipoDieta, _, _, _, _, _, _),
+    dieta(Dieta, TipoDieta, _, _, _, _, _),
     member(TipoDieta, DietasRecomendadas).
 
 % Sugerir una dieta en función del nivel de actividad física.
 sugerir_dieta_por_actividad(NivelActividad, Dieta) :-
     dieta(Dieta, _, _, _, _, ActividadesRecomendadas, _, _),
     member(NivelActividad, ActividadesRecomendadas).
+
+% Ejemplos de uso:
+% ?- sugerir_dieta_por_padecimiento(dislipidemia, Dieta).
+% ?- sugerir_dieta_por_actividad(inicial, Dieta).
+
+% Comentarios:
+% Esta base de datos puede ser ampliada con mas dietas, padecimientos y niveles de actividad.
+% Se recomienda mantener la consistencia en la nomenclatura y la estructura de los hechos y reglas.
