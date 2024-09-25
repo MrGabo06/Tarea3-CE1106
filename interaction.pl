@@ -5,11 +5,25 @@
 % Preguntar al usuario sobre su padecimiento y nivel de actividad.
 inicio :-
     write('Bienvenido a Nutritec.'), nl,
-    write('¿Cuál es su padecimiento? (Ejemplo: dislipidemia, diabetes, etc.)'), nl,
-    read(Padecimiento),
-    write('¿Cuál es su nivel de actividad? (inicial, intermedio, avanzado)'), nl,
-    read(NivelActividad),
-    sugerir_dieta(Padecimiento, NivelActividad).
+    read_line_to_string(user_input, Mensaje),
+    verificar_palabra(Mensaje).
+
+% verificar si una palabra se encuentra en una oracion
+verificar_palabra(Oracion) :-     
+    split_string(Oracion, " ", "", ListaCadenas),   
+    maplist(string_to_atom, ListaCadenas, ListaAtomos),  
+    palabras_predefinidas(ListaPredefinida),        
+    ( miembro_de_lista(ListaPredefinida, ListaAtomos) ->
+        writeln('Se encontro una palabra de la lista predefinida en la oracion.')
+    ;   writeln('No se encontro ninguna palabra de la lista predefinida en la oracion.')
+    ).
+
+% Auxiliar para verificar si se encuentra una palabra en una lista
+miembro_de_lista([], _) :- fail.  
+miembro_de_lista([Palabra|Resto], ListaPalabras) :-
+    ( member(Palabra, ListaPalabras) -> true  
+    ; miembro_de_lista(Resto, ListaPalabras)).
+
 
 % Sugerir dieta basada en el padecimiento y el nivel de actividad.
 sugerir_dieta(Padecimiento, NivelActividad) :-
