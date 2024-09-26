@@ -40,7 +40,7 @@ predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,ag
 %me han diagnosticado
 predicado(Completa,Resto,_,Cantidad,_):-es_palabra(han,Completa,Interm), verbo(Interm,Interm1,Cantidad,me,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
 
-%Yo fui diagnosticado con %Tiene que ser arreglada
+%Yo fui diagnosticado con
 predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,serPasado),verbo(Interm,Interm1,Cantidad,yo,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
 
 % Palabras conocidas
