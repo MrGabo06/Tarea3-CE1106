@@ -32,19 +32,28 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estarPresente), es_palabra(con, Interm, Interm1), condicion(Interm1,Resto,_),!.
 
 % gustaria - articulo - sustantivo
-predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
 % gustaria - hacer - actividad
-predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
-%deseo- articulo - sustantivo
-predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
+% gusta - articulo - sustantivo
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,def),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
-%me han diagnosticado
-predicado(Completa,Resto,_,Cantidad,_):-es_palabra(han,Completa,Interm), verbo(Interm,Interm1,Cantidad,me,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
+% gusta - hacer - actividad
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
-%Yo fui diagnosticado con %Tiene que ser arreglada
-predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,serPasado),verbo(Interm,Interm1,Cantidad,yo,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
+% deseo - articulo - sustantivo
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
+
+% han - diagnosticado - condicion
+predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm), verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
+
+% diagnosticaron - condicion
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm,Resto,_),!.
+
+% fui - diagnosticado - con - condicion
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,serPasado),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
 
 % Palabras conocidas
 % Articulos:
@@ -52,11 +61,18 @@ predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,se
 articulo([un|Resto],Resto,masculino,singular,np,indef).
 articulo([una|Resto],Resto,femenino,singular,np,indef).
 articulo([unas|Resto],Resto,femenino,plural,np,indef).
+articulo([unos|Resto],Resto,masculino,plural,np,indef).
+articulo([el|Resto],Resto,masculino,singular,np,def).
+articulo([la|Resto],Resto,femenino,singular,np,def).
+articulo([los|Resto],Resto,masculino,plural,np,def).
+articulo([las|Resto],Resto,femenino,plural,np,def).
 
 % Sustantivos
 % ([Sustantivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
 sustantivo([ejercicio|Resto],Resto, masculino,singular,np).
 sustantivo([dieta|Resto],Resto,femenino,singular,np).
+sustantivo([mariscos|Resto],Resto, masculino,plural,np).
+sustantivo([semillas|Resto],Resto,femenino,plural,np).
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
@@ -82,6 +98,8 @@ verbo([gusta|Resto],Resto,singular,me,dep,agradarPresente).
 verbo([gustan|Resto],Resto,plural,me,dep,agradarPresente).
 verbo([deseo|Resto],Resto,singular,yo,dep,agradarPresente).
 verbo([diagnosticado|Resto],Resto,singular,me,dep,diagnosticarPasado).
+verbo([diagnosticaron|Resto],Resto,singular,me,dep,diagnosticarPasado).
+verbo([diagnosticado|Resto],Resto,singular,yo,dep,diagnosticarPasado).
 verbo([fui|Resto],Resto,singular,yo,dep,serPasado).
 
 
