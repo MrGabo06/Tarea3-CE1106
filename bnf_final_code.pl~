@@ -23,19 +23,16 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Resto,Cantidad,P
 
 % Predicados de verbos dependientes
 % (hacer y sinonimos) - actividad
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual), actividad(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacer), actividad(Interm,Resto,_),!.
 
 % (tener y sinonimos) - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente), condicion(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tener), condicion(Interm,Resto,_),!.
 
 % (estar) - con - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estarPresente), es_palabra(con, Interm, Interm1), condicion(Interm1,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estar), es_palabra(con, Interm, Interm1), condicion(Interm1,Resto,_),!.
 
 % gustaria - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
-
-% gustaria - hacer - actividad
-predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
 %deseo- articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
@@ -43,7 +40,7 @@ predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,ag
 %me han diagnosticado
 predicado(Completa,Resto,_,Cantidad,_):-es_palabra(han,Completa,Interm), verbo(Interm,Interm1,Cantidad,me,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
 
-%Yo fui diagnosticado con %Tiene que ser arreglada
+%Yo fui diagnosticado con
 predicado(Completa,Resto,_,Cantidad,_):-verbo(Completa,Interm,Cantidad,yo,dep,serPasado),verbo(Interm,Interm1,Cantidad,yo,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
 
 % Palabras conocidas
@@ -69,17 +66,13 @@ adjetivo([intenso|Resto],Resto,masculino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
-verbo([hago|Resto],Resto,singular,yo,dep,hacerActual).
-verbo([hacer|Resto],Resto,singular,me,dep,hacerPresente).
-verbo([practico|Resto],Resto,singular,yo,dep,hacerPresente).
+verbo([hago|Resto],Resto,singular,yo,dep,hacer).
+verbo([practico|Resto],Resto,singular,yo,dep,hacer).
 verbo([corro|Resto],Resto,singular,yo,indep,accionPresente).
 verbo([entreno|Resto],Resto,singular,yo,indep,accionPresente).
-verbo([tengo|Resto],Resto,singular,yo,dep,tenerPresente).
-verbo([estoy|Resto],Resto,singular,yo,dep,estarPresente).
+verbo([tengo|Resto],Resto,singular,yo,dep,tener).
+verbo([estoy|Resto],Resto,singular,yo,dep,estar).
 verbo([gustaria|Resto],Resto,singular,me,superdep,agradarFuturo).
-verbo([gustarian|Resto],Resto,plural,me,superdep,agradarFuturo).
-verbo([gusta|Resto],Resto,singular,me,dep,agradarPresente).
-verbo([gustan|Resto],Resto,plural,me,dep,agradarPresente).
 verbo([deseo|Resto],Resto,singular,yo,dep,agradarPresente).
 verbo([diagnosticado|Resto],Resto,singular,me,dep,diagnosticarPasado).
 verbo([fui|Resto],Resto,singular,yo,dep,serPasado).
