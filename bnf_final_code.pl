@@ -40,10 +40,12 @@ predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,super
 % ([Articulo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np),Definicion(def/indef))
 articulo([un|Resto],Resto,masculino,singular,np,indef).
 articulo([una|Resto],Resto,femenino,singular,np,indef).
+articulo([unas|Resto],Resto,femenino,plural,np,indef).
 
 % Sustantivos
 % ([Sustantivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
-sustantivo([ejercicio, Resto],Resto, masculino,singular,np).
+sustantivo([ejercicio|Resto],Resto, masculino,singular,np).
+sustantivo([dieta|Resto],Resto,femenino,singular,np).
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
