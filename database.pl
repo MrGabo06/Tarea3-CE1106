@@ -26,7 +26,7 @@ nivel_actividad([intermedio, '3-4 veces por semana']).
 nivel_actividad([avanzado, '5 o más veces por semana']).
 
 % Dieta: nombre, tipo, calorías, [padecimientos NO recomendados], [padecimientos recomendados], [actividades NO recomendadas], [actividades recomendadas], detalle.
-dieta([dieta_keto, keto, 1800, [hipercolesterolemia], [obesidad], [avanzado], [inicial], 'Plan de Alimentacion:
+dieta([keto, hipercolesterolemia, inicial,intermedio,avanzado 'Plan de Alimentacion:
 Desayuno: 2 huevos con  1/4 aguacate. 
 Merienda 1: 10 almendras. 
 Almuerzo: Pollo a la parrilla (150g) con espinacas (1 taza). 

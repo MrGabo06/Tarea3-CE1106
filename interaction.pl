@@ -16,22 +16,24 @@ inicio :-
 
 verifica_coincidencias(Mensaje) :-
     ( verifica_padecimiento(Mensaje) ; 
-      verifica_calorias(Mensaje) ; 
+      verifica_actividad(Mensaje) ; 
       verifica_dieta(Mensaje) ),
-    imprimir_lista_coincidencias.
+    lista_coincidencias(Lista1),
+    dieta(Lista2),
+    compara_dieta(Lista1, Lista2).
 
 verifica_dieta(Mensaje) :-
-    lista_animales(Lista),
+    tipo_dieta(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
     agregar_a_lista(Palabra).
 
 verifica_padecimiento(Mensaje) :-
-    emociones(Lista),
+    padecimiento(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
     agregar_a_lista(Palabra).
 
-verifica_calorias(Mensaje) :-
-    colores(Lista),
+verifica_actividad(Mensaje) :-
+    nivel_actividad(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
     agregar_a_lista(Palabra).
 
@@ -64,10 +66,31 @@ agregar_a_lista(Palabra) :-
     assertz(lista_coincidencias([Palabra | Lista])).  % Agregar la nueva palabra
 
 % Imprimir la lista de coincidencias
-imprimir_lista_coincidencias :-
-    lista_coincidencias(Lista),
+imprimir_lista(Lista) :-
     ( Lista = [] -> 
         writeln('No se encontraron coincidencias.')
     ; 
-        write('Palabras encontradas: '), write(Lista), nl  % Cambiado a write para imprimir la lista completa
+        ultimo_elemento(Lista, Ultimo),
+        write('Último elemento encontrado: '), writeln(Ultimo)
     ).
+
+% Predicado para obtener el último elemento de una lista
+ultimo_elemento([Ultimo], Ultimo).  % Caso base: cuando solo queda un elemento
+ultimo_elemento([_|Resto], Ultimo) :-
+    ultimo_elemento(Resto, Ultimo).  % Seguir recorriendo la lista hasta el último elemento
+
+
+% Verificar si al menos tres elementos de la primera lista están en la segunda lista
+compara_dieta(Lista1, Lista2) :-
+    contar_comunes(Lista1, Lista2, 0, Cuenta),
+    Cuenta >= 3,
+    imprimir_lista(Lista2).
+
+% Recibe dos listas, un contador inicial y devuelve el número de elementos comunes
+contar_comunes([], _, Cuenta, Cuenta).
+contar_comunes([H|T], Lista2, CuentaActual, CuentaFinal) :-
+    ( miembro_de_lista(H, Lista2) ->
+        NuevoCuenta is CuentaActual + 1
+    ; NuevoCuenta = CuentaActual
+    ),
+    contar_comunes(T, Lista2, NuevoCuenta, CuentaFinal).
