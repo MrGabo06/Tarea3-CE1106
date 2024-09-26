@@ -23,16 +23,18 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Resto,Cantidad,P
 
 % Predicados de verbos dependientes
 % (hacer y sinonimos) - actividad
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacer), actividad(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual), actividad(Interm,Resto,_),!.
 
 % (tener y sinonimos) - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tener), condicion(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente), condicion(Interm,Resto,_),!.
 
 % (estar) - con - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estar), es_palabra(con, Interm, Interm1), condicion(Interm1,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estarPresente), es_palabra(con, Interm, Interm1), condicion(Interm1,Resto,_),!.
 
 % gustaria - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
+% gustaria - hacer - actividad
+predicado(Completa,Resto,_,Cantidad,_):- verbo(Completa,Interm,Cantidad,me,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
 
 % Palabras conocidas
@@ -58,13 +60,17 @@ adjetivo([intenso|Resto],Resto,masculino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
-verbo([hago|Resto],Resto,singular,yo,dep,hacer).
-verbo([practico|Resto],Resto,singular,yo,dep,hacer).
+verbo([hago|Resto],Resto,singular,yo,dep,hacerActual).
+verbo([hacer|Resto],Resto,singular,me,dep,hacerPresente).
+verbo([practico|Resto],Resto,singular,yo,dep,hacerPresente).
 verbo([corro|Resto],Resto,singular,yo,indep,accionPresente).
 verbo([entreno|Resto],Resto,singular,yo,indep,accionPresente).
-verbo([tengo|Resto],Resto,singular,yo,dep,tener).
-verbo([estoy|Resto],Resto,singular,yo,dep,estar).
+verbo([tengo|Resto],Resto,singular,yo,dep,tenerPresente).
+verbo([estoy|Resto],Resto,singular,yo,dep,estarPresente).
 verbo([gustaria|Resto],Resto,singular,me,superdep,agradarFuturo).
+verbo([gustarian|Resto],Resto,plural,me,superdep,agradarFuturo).
+verbo([gusta|Resto],Resto,singular,me,dep,agradarPresente).
+verbo([gustan|Resto],Resto,plural,me,dep,agradarPresente).
 
 % Actividades
 % ([Actividad|Resto],Resto,Genero)
