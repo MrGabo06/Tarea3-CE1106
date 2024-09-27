@@ -12,9 +12,18 @@ tipo_dieta([carnivora, 'Dieta basada en carne y productos animales, excluyendo v
 tipo_dieta([gluten_free, 'Dieta sin gluten para personas con intolerancia.']).
 tipo_dieta([paleo, 'Dieta basada en alimentos paleolíticos, excluyendo granos y procesados.']).
 
-saludos([hola,buenas,hello]).
-preferencias([quiero, gustaria, gusta, prefiero]).
-despedidas([adios,adieu,chao,bye]).
+% Lista ampliada de saludos (saludos)
+saludos([hola, buenas, adiós, saludos, hey]).
+
+% Lista ampliada de preferencias (preferencias)
+preferencias([quiero, gustaria, gusta, prefiero, deseo, anhelo ]).
+
+% Lista ampliada de despedidas (despedidas)
+despedidas([adiós, chao, hasta, cuídate, bye, adieu]).
+
+% Lista ampliada de negaciones (negaciones)
+negaciones([no, nunca, jamás, tampoco, never, imposible, nada, negativo]).
+
 
 % Padecimiento: nombre, descripción, dietas recomendadas.
 padecimiento([dislipidemia, 'Problemas del control del colesterol', [baja_en_grasas, mediterranea]]).
