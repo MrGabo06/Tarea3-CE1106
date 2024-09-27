@@ -56,6 +56,10 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % gustaria - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
+%gustaria - realizar - articulo - sustantivo - adjetivo
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,realizarPresente),articulo(Interm1,Interm2,Genero1,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero1,Cantidad,np),adjetivo(Interm3,Resto,Genero1,Cantidad,np),!.
+
+
 % gustaria - hacer - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
@@ -64,6 +68,15 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 
 % gusta - hacer - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
+
+% yo - hago - actividad - n - veces - a - la - semana
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Interm1,_),sustantivo(Interm1,Resto,_,_,np,nv),!.
+
+% yo - hago - actividad - n - veces - a - la - semana - n horas
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Interm1,_),sustantivo(Interm1,Interm2,_,_,np,nv), sustantivo(Interm2,Resto,_,_,np,nh),!.
+
+
+
 
 % deseo - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
@@ -117,6 +130,8 @@ sustantivo([semillas|Resto],Resto,femenino,plural,np).
 sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
 sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
 sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
+sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero).
+sustantivo([Numero,hora/s|Resto],Resto,masculino,plural,np,nh):-number(Numero).
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
@@ -128,6 +143,17 @@ persona([me|Resto],Resto,masculino,singular,me).
 adjetivo([intenso|Resto],Resto,masculino,singular,np).
 adjetivo([saludable|Resto],Resto,masculino,singular,np).
 adjetivo([saludable|Resto],Resto,femenino,singular,np).
+adjetivo([keto|Resto],Resto,femenino,singular,np).
+adjetivo([proteica|Resto],Resto,femenino,singular,np).
+adjetivo([vegetariana|Resto],Resto,femenino,singular,np).
+adjetivo([alcalina|Resto],Resto,femenino,singular,np).
+adjetivo([baja_en_grasas|Resto],Resto,femenino,singular,np).
+adjetivo([vegana|Resto],Resto,femenino,singular,np).
+adjetivo([mediterranea|Resto],Resto,femenino,singular,np).
+adjetivo([carnivora|Resto],Resto,femenino,singular,np).
+adjetivo([gluten_free|Resto],Resto,femenino,singular,np).
+adjetivo([paleo|Resto],Resto,femenino,singular,np).
+
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
@@ -153,6 +179,7 @@ verbo([quiero|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
 verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
+verbo([realizar|Resto],Resto,singular,me,dep,realizarPresente).
 
 
 
@@ -161,6 +188,7 @@ verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
 % ([Actividad|Resto],Resto,Genero)
 actividad([atletismo|Resto],Resto,masculino).
 actividad([ejercicio|Resto],Resto,masculino).
+actividad([natacion|Resto],Resto,masculino).
 
 % Condiciones
 % ([Condicion|Resto],Resto,Genero)
