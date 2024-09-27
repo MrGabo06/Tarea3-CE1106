@@ -60,6 +60,10 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % gustaria - hacer - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
+% gustaria - llevar - estilo de vida saludable
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
+
+
 % gusta - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,def),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
@@ -69,8 +73,18 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % deseo - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
+% deseo - llevar - un - estilo de vida - saludable
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
+
+%quiero - llevar - un - estilo de vida - saludable
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,quererPresentePP),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
+
+
 % han - diagnosticado - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
+
+%habia- pensado - unas - n - calorias
+predicado(Completa,Resto,_,Cantidad,Pronombre):-  verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado), articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Resto,Genero,Cantidad,np,rn),!.
 
 % diagnosticaron - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm,Resto,_),!.
@@ -90,12 +104,15 @@ articulo([la|Resto],Resto,femenino,singular,np,def).
 articulo([los|Resto],Resto,masculino,plural,np,def).
 articulo([las|Resto],Resto,femenino,plural,np,def).
 
+
 % Sustantivos
 % ([Sustantivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
 sustantivo([ejercicio|Resto],Resto,masculino,singular,np).
 sustantivo([dieta|Resto],Resto,femenino,singular,np).
 sustantivo([mariscos|Resto],Resto,masculino,plural,np).
 sustantivo([semillas|Resto],Resto,femenino,plural,np).
+sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
+sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
@@ -105,6 +122,7 @@ persona([me|Resto],Resto,masculino,singular,me).
 % Adjetivos
 % ([Adjetivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
 adjetivo([intenso|Resto],Resto,masculino,singular,np).
+adjetivo([saludable|Resto],Resto,masculino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
@@ -124,6 +142,13 @@ verbo([diagnosticado|Resto],Resto,singular,me,dep,diagnosticarPasado).
 verbo([diagnosticaron|Resto],Resto,singular,me,dep,diagnosticarPasado).
 verbo([diagnosticado|Resto],Resto,singular,yo,dep,diagnosticarPasado).
 verbo([fui|Resto],Resto,singular,yo,dep,serPasado).
+verbo([llevar|Resto],Resto,singular,me,dep,llevarPresente).
+verbo([llevar|Resto],Resto,singular,yo,dep,llevarPresente).
+verbo([quiero|Resto],Resto,singular,yo,superdep,quererPresentePP).
+verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
+verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
+
+
 
 
 % Actividades
