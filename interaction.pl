@@ -11,8 +11,34 @@ lista_coincidencias([]).
 % inicio del programa
 inicio :-
     write('Bienvenido a Nutritec.'), nl,
+    conversacion.
+
+conversacion:-
     read_line_to_string(user_input, Mensaje),
-    verifica_coincidencias(Mensaje).
+    %PASA POR EL BNF
+    (verifica_coincidencias(Mensaje);
+    genera_respuesta(Mensaje)), nl,
+    conversacion.
+
+genera_respuesta(Mensaje):-
+    (verifica_saludo(Mensaje);
+    verifica_despedida(Mensaje);
+    verifica_preferencia(Mensaje)).
+
+verifica_saludo(Mensaje) :-
+    saludos(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    write('Hola, como puedo ayudarte hoy?').
+
+verifica_despedida(Mensaje) :-
+    despedidas(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    write('Adios, que te vaya bien'), halt.
+
+verifica_preferencia(Mensaje) :-
+    preferencias(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    write('entiendo tu preferencia').
 
 verifica_coincidencias(Mensaje) :-
     ( verifica_padecimiento(Mensaje) ; 

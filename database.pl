@@ -12,6 +12,10 @@ tipo_dieta([carnivora, 'Dieta basada en carne y productos animales, excluyendo v
 tipo_dieta([gluten_free, 'Dieta sin gluten para personas con intolerancia.']).
 tipo_dieta([paleo, 'Dieta basada en alimentos paleolíticos, excluyendo granos y procesados.']).
 
+saludos([hola,buenas,hello]).
+preferencias([quiero, gustaria, gusta, prefiero]).
+despedidas([adios,adieu,chao,bye]).
+
 % Padecimiento: nombre, descripción, dietas recomendadas.
 padecimiento([dislipidemia, 'Problemas del control del colesterol', [baja_en_grasas, mediterranea]]).
 padecimiento([hipercolesterolemia, 'Aumento de colesterol en la sangre', [vegana, vegetariana]]).
