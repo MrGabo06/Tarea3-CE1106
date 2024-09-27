@@ -16,14 +16,26 @@ inicio :-
 conversacion:-
     read_line_to_string(user_input, Mensaje),
     %PASA POR EL BNF
-    (verifica_coincidencias(Mensaje);
+    (verifica_negaciones(Mensaje);
+    verifica_coincidencias(Mensaje);
     genera_respuesta(Mensaje)), nl,
     conversacion.
+
+verifica_negaciones(Mensaje):-
+    negaciones(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    write('Entiendo que no quieras eso, dime que te interesa'),nl.
 
 genera_respuesta(Mensaje):-
     (verifica_saludo(Mensaje);
     verifica_despedida(Mensaje);
-    verifica_preferencia(Mensaje)).
+    verifica_preferencia(Mensaje);
+    verifica_agradecimiento(Mensaje)).
+
+verifica_agradecimiento(Mensaje):-
+    agradecimientos(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    write('Es un placer serte util').
 
 verifica_saludo(Mensaje) :-
     saludos(Lista),
@@ -38,7 +50,22 @@ verifica_despedida(Mensaje) :-
 verifica_preferencia(Mensaje) :-
     preferencias(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
-    write('entiendo tu preferencia').
+    write('Excelente iniciativa, vamos a encontrar la mejor alternativa para ti'),nl,
+    realizar_preguntas.
+
+realizar_preguntas:-
+    (write('Tienes algun padecimiento?'),nl,
+    read_line_to_string(user_input, Mensaje),
+    verifica_padecimiento(Mensaje)),
+    (write('Tienes alguna dieta en mente?'),nl,
+    read_line_to_string(user_input, Mensaje2),
+    verifica_dieta(Mensaje2)),
+    (write('cual es tu nivel de ejercicio'),nl,
+    read_line_to_string(user_input, Mensaje3),
+    verifica_actividad(Mensaje3)),
+    lista_coincidencias(Lista1),
+    dieta(Lista2),
+    compara_dieta(Lista1, Lista2).
 
 verifica_coincidencias(Mensaje) :-
     ( verifica_padecimiento(Mensaje) ; 
@@ -49,19 +76,22 @@ verifica_coincidencias(Mensaje) :-
     compara_dieta(Lista1, Lista2).
 
 verifica_dieta(Mensaje) :-
-    tipo_dieta(Lista),
+    verifica_negaciones(Mensaje);
+    (tipo_dieta(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
-    agregar_a_lista(Palabra).
+    agregar_a_lista(Palabra)).
 
 verifica_padecimiento(Mensaje) :-
-    padecimiento(Lista),
+    verifica_negaciones(Mensaje);
+    (padecimiento(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
-    agregar_a_lista(Palabra).
+    agregar_a_lista(Palabra)).
 
 verifica_actividad(Mensaje) :-
-    nivel_actividad(Lista),
+    verifica_negaciones(Mensaje);
+    (nivel_actividad(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
-    agregar_a_lista(Palabra).
+    agregar_a_lista(Palabra)).
 
 % Verificar si alguna palabra de la oración está en la lista predefinida
 verificar_palabra(Oracion, ListaPredefinida, PalabraEncontrada) :-
@@ -109,8 +139,9 @@ ultimo_elemento([_|Resto], Ultimo) :-
 % Verificar si al menos tres elementos de la primera lista están en la segunda lista
 compara_dieta(Lista1, Lista2) :-
     contar_comunes(Lista1, Lista2, 0, Cuenta),
-    Cuenta >= 3,
-    imprimir_lista(Lista2).
+    (Cuenta >= 3,
+    imprimir_lista(Lista2));
+    write('Lo siento, no tengo una dieta que se acople a tus necesidades en este momento').
 
 % Recibe dos listas, un contador inicial y devuelve el número de elementos comunes
 contar_comunes([], _, Cuenta, Cuenta).

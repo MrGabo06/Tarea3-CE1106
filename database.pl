@@ -13,16 +13,18 @@ tipo_dieta([gluten_free, 'Dieta sin gluten para personas con intolerancia.']).
 tipo_dieta([paleo, 'Dieta basada en alimentos paleolíticos, excluyendo granos y procesados.']).
 
 % Lista ampliada de saludos (saludos)
-saludos([hola, buenas, adiós, saludos, hey]).
+saludos([hola, buenas, saludos, hey]).
 
 % Lista ampliada de preferencias (preferencias)
-preferencias([quiero, gustaria, gusta, prefiero, deseo, anhelo ]).
+preferencias([quiero, gustaria, gusta, prefiero, deseo, anhelo]).
 
 % Lista ampliada de despedidas (despedidas)
-despedidas([adiós, chao, hasta, cuídate, bye, adieu]).
+despedidas([adios, chao, hasta, cuidate, bye, adieu]).
 
 % Lista ampliada de negaciones (negaciones)
-negaciones([no, nunca, jamás, tampoco, never, imposible, nada, negativo]).
+negaciones([no, nunca, jamas, tampoco, never, imposible, nada, negativo]).
+
+agradecimientos([gracias, agradezco]).
 
 
 % Padecimiento: nombre, descripción, dietas recomendadas.
