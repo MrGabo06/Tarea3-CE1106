@@ -1,3 +1,27 @@
+% Importar las bibliotecas necesarias
+:- use_module(library(pcre)).
+:- use_module(library(lists)).
+
+% Función principal que recibe la cadena y devuelve la lista de palabras sin mayúsculas, tildes y signos de puntuación
+procesar_cadena(Cadena, Palabras) :-
+    string_lower(Cadena, CadenaMinuscula),            % Convertir toda la cadena a minúsculas
+    remover_tildes(CadenaMinuscula, CadenaSinTildes), % Remover las tildes
+    remover_puntuacion(CadenaSinTildes, CadenaLimpia),% Remover signos de puntuación
+    split_string(CadenaLimpia, " ", "", Lista),       % Dividir la cadena en palabras
+    exclude(=([]), Lista, Palabras).                  % Eliminar posibles palabras vacías
+
+% Función que remueve tildes de las vocales usando expresiones regulares (pcre)
+remover_tildes(Cadena, Resultado) :-
+    re_replace("á"/g, "a", Cadena, Temp1),
+    re_replace("é"/g, "e", Temp1, Temp2),
+    re_replace("í"/g, "i", Temp2, Temp3),
+    re_replace("ó"/g, "o", Temp3, Temp4),
+    re_replace("ú"/g, "u", Temp4, Resultado).
+
+% Función que remueve signos de puntuación y símbolos de la cadena
+remover_puntuacion(Cadena, Resultado) :-
+    re_replace("[!¡?¿,\\.\\-;:()\"\'\\[\\]]"/g, "", Cadena, Resultado).
+
 % Hecho auxiliar para buscar palabras específicas
 es_palabra(Palabra, [Palabra|Resto], Resto).
 
@@ -116,4 +140,11 @@ condicion([diabetes|Resto],Resto,femenino).
 % ([Saludo|Resto],Resto)
 saludo([hola|Resto],Resto).
 saludo([saludos|Resto],Resto).
+
+
+% Funcion para que la lista que se le envie al BNF sea compuesta por atomos unicamente
+string_a_atom([], []).
+string_a_atom([H|T], [AtomH|AtomT]):- atom_string(AtomH, H),string_a_atom(T, AtomT).
+
+leer:- read_line_to_string(user_input, Oracion),procesar_cadena(Oracion, OracionListaStrings),string_a_atom(OracionListaStrings,OracionLista),nl,verifica(OracionLista).
 
