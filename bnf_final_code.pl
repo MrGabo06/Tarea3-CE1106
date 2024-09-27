@@ -60,11 +60,7 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % gustaria - hacer - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
-% gustaria - llevar - estilo de vida saludable
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
-
-
-% gusta - articulo - sustantivo
+% gusta/n - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,def),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
 % gusta - hacer - actividad
@@ -73,18 +69,20 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % deseo - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
-% deseo - llevar - un - estilo de vida - saludable
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
+% gustaria - llevar - un - estilo de vida saludable
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
 
-%quiero - llevar - un - estilo de vida - saludable
+% deseo (y sinonimos) - llevar - un - estilo de vida - saludable
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,quererPresentePP),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
-
 
 % han - diagnosticado - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
 
-%habia- pensado - unas - n - calorias
-predicado(Completa,Resto,_,Cantidad,Pronombre):-  verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado), articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Resto,Genero,Cantidad,np,rn),!.
+% habia - pensado - articulo - sustantivo
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado),articulo(Interm1,Interm2,Genero,CantidadS,np,indef),sustantivo(Interm2,Resto,Genero,CantidadS,np),!.
+
+% habia - pensado - unas - n - calorias
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado),articulo(Interm1,Interm2,femenino,CantidadS,np,indef),sustantivo(Interm2,Resto,femenino,CantidadS,np,rn),!.
 
 % diagnosticaron - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm,Resto,_),!.
@@ -145,6 +143,7 @@ verbo([fui|Resto],Resto,singular,yo,dep,serPasado).
 verbo([llevar|Resto],Resto,singular,me,dep,llevarPresente).
 verbo([llevar|Resto],Resto,singular,yo,dep,llevarPresente).
 verbo([quiero|Resto],Resto,singular,yo,superdep,quererPresentePP).
+verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
 verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
 
