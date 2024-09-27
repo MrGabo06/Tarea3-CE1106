@@ -44,7 +44,6 @@ oracion(Completa,Resto):- saludo(Completa,Interm),es_palabra(nutritec,Interm,Res
 % Predicados de un sólo verbo independiente
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Resto,Cantidad,Pronombre,indep,_),!.
 
-% Predicados de verbos dependientes
 % (hacer y sinonimos) - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Resto,_),!.
 
@@ -70,10 +69,10 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
 % gustaria - llevar - un - estilo de vida saludable
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,GeneroV,Cantidad,np,indef),sustantivo(Interm2,Interm3,GeneroV,Cantidad,np,svp),adjetivo(Interm3,Resto,GeneroV,Cantidad,np),!.
 
 % deseo (y sinonimos) - llevar - un - estilo de vida - saludable
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,quererPresentePP),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,Genero,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero,Cantidad,np,svp),adjetivo(Interm3,Resto,Genero,Cantidad,np),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,quererPresentePP),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,GeneroV,Cantidad,np,indef),sustantivo(Interm2,Interm3,GeneroV,Cantidad,np,svp),adjetivo(Interm3,Resto,GeneroV,Cantidad,np),!.
 
 % han - diagnosticado - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
@@ -91,6 +90,12 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,serPasado),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
 
 % Palabras conocidas
+
+% Aceptacion/negacion:
+acept_neg([si|Resto],Resto).
+acept_neg([no|Resto],Resto).
+acept_neg([''|Resto],Resto).
+
 % Articulos:
 % ([Articulo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np),Definicion(def/indef))
 articulo([un|Resto],Resto,masculino,singular,np,indef).
@@ -109,6 +114,7 @@ sustantivo([ejercicio|Resto],Resto,masculino,singular,np).
 sustantivo([dieta|Resto],Resto,femenino,singular,np).
 sustantivo([mariscos|Resto],Resto,masculino,plural,np).
 sustantivo([semillas|Resto],Resto,femenino,plural,np).
+sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
 sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
 sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
 
@@ -121,6 +127,7 @@ persona([me|Resto],Resto,masculino,singular,me).
 % ([Adjetivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
 adjetivo([intenso|Resto],Resto,masculino,singular,np).
 adjetivo([saludable|Resto],Resto,masculino,singular,np).
+adjetivo([saludable|Resto],Resto,femenino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
