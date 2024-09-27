@@ -12,10 +12,6 @@ tipo_dieta([carnivora, 'Dieta basada en carne y productos animales, excluyendo v
 tipo_dieta([gluten_free, 'Dieta sin gluten para personas con intolerancia.']).
 tipo_dieta([paleo, 'Dieta basada en alimentos paleolíticos, excluyendo granos y procesados.']).
 
-saludos([hola,buenas, alo]).
-preferencias([quiero, gustaria, gusta]).
-despedidas([adios, chao, adieu, bye]).
-
 % Padecimiento: nombre, descripción, dietas recomendadas.
 padecimiento([dislipidemia, 'Problemas del control del colesterol', [baja_en_grasas, mediterranea]]).
 padecimiento([hipercolesterolemia, 'Aumento de colesterol en la sangre', [vegana, vegetariana]]).
@@ -30,13 +26,14 @@ nivel_actividad([intermedio, '3-4 veces por semana']).
 nivel_actividad([avanzado, '5 o más veces por semana']).
 
 % Dieta: nombre, tipo, calorías, [padecimientos NO recomendados], [padecimientos recomendados], [actividades NO recomendadas], [actividades recomendadas], detalle.
-dieta([keto, hipercolesterolemia, inicial,intermedio,avanzado 'Plan de Alimentacion:
-Desayuno: 2 huevos con  1/4 aguacate. 
+dieta([keto, hipercolesterolemia, inicial, intermedio, avanzado, 'Plan de Alimentacion:
+Desayuno: 2 huevos con 1/4 aguacate. 
 Merienda 1: 10 almendras. 
 Almuerzo: Pollo a la parrilla (150g) con espinacas (1 taza). 
 Merienda 2: Yogur griego (100g) con nueces. 
 Cena: Salmón (120g) con brócoli (1 taza).
-Notas:Tomar minimo 3 litros diarios de agua.']).
+Notas:Tomar mínimo 3 litros diarios de agua.']).
+
 dieta([dieta_vegetariana, vegetariana, 1600, [], [hipercolesterolemia], [avanzado], [inicial, intermedio], 'Plan de Alimentacion: 
 Desayuno: Batido de frutas (1 plátano, 1 taza de espinacas, 1 taza de leche de almendra) con avena (50g). 
 Merienda 1: 1 manzana. 

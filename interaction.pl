@@ -11,33 +11,8 @@ lista_coincidencias([]).
 % inicio del programa
 inicio :-
     write('Bienvenido a Nutritec.'), nl,
-    conversacion.
-
-conversacion:-
     read_line_to_string(user_input, Mensaje),
-    %PASA POR EL BNF
-    (verifica_coincidencias(Mensaje);
-    genera_respuesta(Mensaje)).
-
-genera_respuesta(Mensaje):-
-    (verifica_saludo(Mensaje);
-    verifica_despedida(Mensaje);
-    verifica_preferencia(Mensaje)).
-
-verifica_saludo(Mensaje) :-
-    saludos(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
-    write('Hola, como puedo ayudarte hoy?').
-
-verifica_despedida(Mensaje) :-
-    despedidas(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
-    write('Adios, que te vaya bien').
-
-verifica_preferencia(Mensaje) :-
-    preferencias(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
-    write('entiendo tu preferencia').
+    verifica_coincidencias(Mensaje).
 
 verifica_coincidencias(Mensaje) :-
     ( verifica_padecimiento(Mensaje) ; 
@@ -72,7 +47,11 @@ verificar_palabra(Oracion, ListaPredefinida, PalabraEncontrada) :-
     
     % Verificamos si alguna palabra de la lista de la oración está en la lista predefinida
     miembro_de_lista(PalabraEncontrada, ListaAtomos),
-    miembro_de_lista(PalabraEncontrada, ListaPredefinida).
+    miembro_de_lista(PalabraEncontrada, ListaPredefinida),
+    
+    % Si se encuentra, devolvemos la palabra encontrada
+    writeln('Se encontró una palabra de la lista predefinida en la oración: '),
+    writeln(PalabraEncontrada).
 
 % Predicado para verificar si un elemento es miembro de una lista
 miembro_de_lista(Elemento, [Elemento|_]).
