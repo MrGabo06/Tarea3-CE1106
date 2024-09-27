@@ -2,28 +2,27 @@
 :- use_module(library(pcre)).
 :- use_module(library(lists)).
 
-% Función principal que recibe la cadena y devuelve la lista de palabras sin mayúsculas, tildes y signos de puntuación
-procesar_cadena(Cadena, Palabras) :-
-    string_lower(Cadena, CadenaMinuscula),            % Convertir toda la cadena a minúsculas
-    remover_tildes(CadenaMinuscula, CadenaSinTildes), % Remover las tildes
-    remover_puntuacion(CadenaSinTildes, CadenaLimpia),% Remover signos de puntuación
-    split_string(CadenaLimpia, " ", "", Lista),       % Dividir la cadena en palabras
-    exclude(=([]), Lista, Palabras).                  % Eliminar posibles palabras vacías
+% Funcion principal que recibe la cadena y devuelve la lista de palabras (y números)
+procesar_cadena(Cadena,ResultadoProcesado):- string_lower(Cadena,CadenaMinuscula),remover_tildes(CadenaMinuscula,CadenaSinTildes),remover_puntuacion(CadenaSinTildes,CadenaLimpia),split_string(CadenaLimpia," ","",Lista),maplist(convertir_a_numero_si_es_posible,Lista,ResultadoProcesado).
 
-% Función que remueve tildes de las vocales usando expresiones regulares (pcre)
-remover_tildes(Cadena, Resultado) :-
-    re_replace("á"/g, "a", Cadena, Temp1),
-    re_replace("é"/g, "e", Temp1, Temp2),
-    re_replace("í"/g, "i", Temp2, Temp3),
-    re_replace("ó"/g, "o", Temp3, Temp4),
-    re_replace("ú"/g, "u", Temp4, Resultado).
+% Funcion que remueve tildes de las vocales usando expresiones regulares (pcre)
+remover_tildes(Cadena,Resultado):-
+    re_replace("á"/g,"a",Cadena,Temp1),
+    re_replace("é"/g,"e",Temp1,Temp2),
+    re_replace("í"/g,"i",Temp2,Temp3),
+    re_replace("ó"/g,"o",Temp3,Temp4),
+    re_replace("ú"/g,"u",Temp4,Resultado).
 
-% Función que remueve signos de puntuación y símbolos de la cadena
-remover_puntuacion(Cadena, Resultado) :-
-    re_replace("[!¡?¿,\\.\\-;:()\"\'\\[\\]]"/g, "", Cadena, Resultado).
+% Funcion que remueve signos de puntuación y símbolos de la cadena
+remover_puntuacion(Cadena,Resultado):-
+    re_replace("[!¡?¿,\\.\\-;:()\"\'\\[\\]]"/g,"",Cadena,Resultado).
+
+% Funcion que convierte una cadena en número si es posible
+convertir_a_numero_si_es_posible(Cadena,Numero):- number_string(Numero,Cadena),!.
+convertir_a_numero_si_es_posible(Cadena,Cadena).
 
 % Hecho auxiliar para buscar palabras específicas
-es_palabra(Palabra, [Palabra|Resto], Resto).
+es_palabra(Palabra,[Palabra|Resto],Resto).
 
 % Funcion para verificar una oracion
 verifica(Oracion):- oracion(Oracion,[]).
@@ -39,7 +38,7 @@ oracion(Completa,Resto):- es_palabra(me,Completa,Interm),predicado(Interm,Resto,
 oracion(Completa,Resto):- predicado(Completa,Resto,_,singular,yo),!.
 
 % Oraciones con saludo simple
-oracion(Completa,Resto):- saludo(Completa,Interm), es_palabra(nutritec,Interm,Resto),!.
+oracion(Completa,Resto):- saludo(Completa,Interm),es_palabra(nutritec,Interm,Resto),!.
 
 % Estructuras de predicados
 % Predicados de un sólo verbo independiente
@@ -47,13 +46,13 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Resto,Cantidad,P
 
 % Predicados de verbos dependientes
 % (hacer y sinonimos) - actividad
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual), actividad(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Resto,_),!.
 
 % (tener y sinonimos) - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente), condicion(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente),condicion(Interm,Resto,_),!.
 
 % (estar) - con - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estarPresente), es_palabra(con, Interm, Interm1), condicion(Interm1,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,estarPresente),es_palabra(con,Interm,Interm1),condicion(Interm1,Resto,_),!.
 
 % gustaria - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
@@ -71,7 +70,7 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
 % han - diagnosticado - condicion
-predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm), verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm1,Resto,_),!.
 
 % diagnosticaron - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,diagnosticarPasado),condicion(Interm,Resto,_),!.
@@ -93,9 +92,9 @@ articulo([las|Resto],Resto,femenino,plural,np,def).
 
 % Sustantivos
 % ([Sustantivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
-sustantivo([ejercicio|Resto],Resto, masculino,singular,np).
+sustantivo([ejercicio|Resto],Resto,masculino,singular,np).
 sustantivo([dieta|Resto],Resto,femenino,singular,np).
-sustantivo([mariscos|Resto],Resto, masculino,plural,np).
+sustantivo([mariscos|Resto],Resto,masculino,plural,np).
 sustantivo([semillas|Resto],Resto,femenino,plural,np).
 
 % Persona
@@ -143,8 +142,9 @@ saludo([saludos|Resto],Resto).
 
 
 % Funcion para que la lista que se le envie al BNF sea compuesta por atomos unicamente
-string_a_atom([], []).
-string_a_atom([H|T], [AtomH|AtomT]):- atom_string(AtomH, H),string_a_atom(T, AtomT).
+string_a_atom([],[]).
+string_a_atom([H|T],[AtomH|AtomT]):- atom_string(AtomH,H),string_a_atom(T,AtomT).
 
-leer:- read_line_to_string(user_input, Oracion),procesar_cadena(Oracion, OracionListaStrings),string_a_atom(OracionListaStrings,OracionLista),nl,verifica(OracionLista).
+% Funcion para leer entradas del cliente por la linea de comandos
+leer:- read_line_to_string(user_input,Oracion),procesar_cadena(Oracion,OracionListaStrings),string_a_atom(OracionListaStrings,OracionLista),nl,verifica(OracionLista).
 
