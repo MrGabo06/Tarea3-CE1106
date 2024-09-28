@@ -30,8 +30,9 @@ verifica(Oracion):- oracion(Oracion,[]).
 
 
 % Estructuras de oraciones
-% Oracion de aceptacion o negacion
+% Oracion de aceptacion o negacion + otra oracion (opcional)
 oracion(Completa,Resto):- acept_neg(Completa,Resto),!.
+oracion(Completa,Resto):- acept_neg(Completa,Interm),oracion(Interm,Resto),!.
 
 % Oracion de condicion o actividad
 oracion(Completa,Resto):- condicion(Completa,Resto,_),!.
@@ -160,21 +161,7 @@ sustantivo([dieta|Resto],Resto,femenino,singular,np).
 sustantivo([mariscos|Resto],Resto,masculino,plural,np).
 sustantivo([semillas|Resto],Resto,femenino,plural,np).
 sustantivo([Numero|Resto],Resto,masculino,singular,np):-number(Numero).
-sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
-sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
-sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
-sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
-sustantivo([Numero,vez,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
-sustantivo([Numero,veces,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
-sustantivo([Numero,vez,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
-sustantivo([Numero,horas|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero\==1.
-sustantivo([Numero,hora|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero==1.
-sustantivo([dislipidemia|Resto],Resto,femenino,singular,np).
-sustantivo([peso|Resto],Resto,masculino,singular,np).
-sustantivo([sobrepeso|Resto],Resto,masculino,singular,np).
 sustantivo([calorias|Resto],Resto,femenino,plural,np).
-sustantivo([ciclismo|Resto],Resto,masculino,singular,np).
-sustantivo([desnutricion|Resto],Resto,femenino,singular,np).
 sustantivo([vegetales|Resto],Resto,masculino,plural,np).
 sustantivo([lentejas|Resto],Resto,femenino,plural,np).
 sustantivo([gallo,pinto|Resto],Resto,masculino,singular,np).
@@ -188,7 +175,15 @@ sustantivo([yogurt|Resto],Resto,masculino,singular,np).
 sustantivo([granola|Resto],Resto,femenino,singular,np).
 sustantivo([cafe|Resto],Resto,masculino,singular,np).
 sustantivo([aguacate|Resto],Resto,masculino,singular,np).
-
+sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
+sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
+sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
+sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
+sustantivo([Numero,vez,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
+sustantivo([Numero,veces,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
+sustantivo([Numero,vez,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
+sustantivo([Numero,horas|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero\==1.
+sustantivo([Numero,hora|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero==1.
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
@@ -217,8 +212,6 @@ adjetivo([vegetariano|Resto],Resto,masculino,singular,np).
 adjetivo([bajo,en,grasas|Resto],Resto,masculino,singular,np).
 adjetivo([mediterraneo|Resto],Resto,masculino,singular,np).
 
-
-
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
 verbo([hago|Resto],Resto,singular,yo,dep,hacerPresentePP).
@@ -246,12 +239,8 @@ verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
 verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
 verbo([realizar|Resto],Resto,singular,me,dep,realizarPresente).
-verbo([realizo|Resto],Resto,singular,yo,indep,actividadPresentePP).
-verbo([practico|Resto],Resto,singular,yo,indep,actividadPresentePP).
-verbo([correria|Resto],Resto,singular,yo,indep,actividadCondicionalPP).
-verbo([pienso|Resto],Resto,singular,yo,dep,pensarPresente).
+verbo([realizo|Resto],Resto,singular,yo,indep,hacerPresentePP).
 verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
-
 
 % Agradecimientos
 agradecimiento([gracias|Resto],Resto,femenino).
