@@ -1,3 +1,4 @@
+% consult('bnf_final_code.pl').
 % Importar las bibliotecas necesarias
 :- use_module(library(pcre)).
 :- use_module(library(lists)).
@@ -28,7 +29,7 @@ es_palabra(Palabra,[Palabra|Resto],Resto).
 verifica(Oracion):- oracion(Oracion,[]).
 
 % Estructuras de oraciones
-% Oracion que se divide en un pronombre y un predicado
+% Oracion que se divide en un pronombre (yo) y un predicado
 oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),predicado(Interm,Resto,_,Cantidad,Pronombre),!.
 
 % Oracion que se divide en un me y un predicado condicional (ej: me gusta/gustaria...)
@@ -37,17 +38,36 @@ oracion(Completa,Resto):- es_palabra(me,Completa,Interm),predicado(Interm,Resto,
 % Oracion con pronombre (yo) implicito
 oracion(Completa,Resto):- predicado(Completa,Resto,_,singular,yo),!.
 
-% Oraciones con saludo simple
+% oracion compuesta por solo un numero
+oracion(Completa,Resto):- sustantivo(Completa,Resto,masculino,singular,np),!.
+
+% Oracion con saludo simple
 oracion(Completa,Resto):- saludo(Completa,Interm),es_palabra(nutritec,Interm,Resto),!.
+oracion(Completa,Resto):- saludo(Completa,Interm),es_palabra(nutritec,Interm,Interm1),oracion(Interm1,Resto),!.
+
+% Oracion de agradecimiento
+oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),es_palabra(nutritec,Interm,Resto),!.
+oracion(Completa,Resto):- agradecimiento(Completa,Resto,_),!.
+oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),es_palabra(nutritec,Interm,Interm1),oracion(Interm1,Resto),!.
+oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),oracion(Interm,Resto),!.
 
 % Estructuras de predicados
 % Predicados de un sólo verbo independiente
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Resto,Cantidad,Pronombre,indep,_),!.
 
 % (hacer y sinonimos) - actividad
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Resto,_),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerPresentePP),actividad(Interm,Resto,_),!.
 
-% (tener y sinonimos) - condicion
+% (actividad presente primera persona) - n - veces a la semana - (opcional) - m - horas - por - semana
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,indep,actividadPresentePP),sustantivo(Interm,Resto,_,_,np,nv),!.
+
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,indep,actividadPresentePP),sustantivo(Interm,Interm1,_,_,np,nv),sustantivo(Interm1,Resto,_,_,np,nh),!.
+
+% (tener y sinonimos) - articulo - sustantivo / condicion
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente),articulo(Interm,Interm1,GeneroS,CantidadS,np,indef),sustantivo(Interm1,Resto,GeneroS,CantidadS,np).
+
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente),sustantivo(Interm,Resto,_,_,np).
+
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,tenerPresente),condicion(Interm,Resto,_),!.
 
 % (estar) - con - condicion
@@ -56,9 +76,10 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % gustaria - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
 
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Interm2,Genero,Cantidad,np),adjetivo(Interm2,Resto,Genero,Cantidad,np),!.
+
 %gustaria - realizar - articulo - sustantivo - adjetivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,realizarPresente),articulo(Interm1,Interm2,Genero1,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero1,Cantidad,np),adjetivo(Interm3,Resto,Genero1,Cantidad,np),!.
-
 
 % gustaria - hacer - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
@@ -70,16 +91,15 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
 
 % yo - hago - actividad - n - veces - a - la - semana
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Interm1,_),sustantivo(Interm1,Resto,_,_,np,nv),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerPresentePP),actividad(Interm,Interm1,_),sustantivo(Interm1,Resto,_,_,np,nv),!.
 
 % yo - hago - actividad - n - veces - a - la - semana - n horas
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerActual),actividad(Interm,Interm1,_),sustantivo(Interm1,Interm2,_,_,np,nv), sustantivo(Interm2,Resto,_,_,np,nh),!.
-
-
-
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerPresentePP),actividad(Interm,Interm1,_),sustantivo(Interm1,Interm2,_,_,np,nv),sustantivo(Interm2,Resto,_,_,np,nh),!.
 
 % deseo - articulo - sustantivo
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,indef),sustantivo(Interm1,Resto,GeneroS,CantidadS,np),!.
+
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,indef),sustantivo(Interm1,Interm2,GeneroS,CantidadS,np),adjetivo(Interm2,Resto,GeneroS,CantidadS,np),!.
 
 % gustaria - llevar - un - estilo de vida saludable
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,GeneroV,Cantidad,np,indef),sustantivo(Interm2,Interm3,GeneroV,Cantidad,np,svp),adjetivo(Interm3,Resto,GeneroV,Cantidad,np),!.
@@ -92,6 +112,8 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- es_palabra(han,Completa,Interm)
 
 % habia - pensado - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado),articulo(Interm1,Interm2,Genero,CantidadS,np,indef),sustantivo(Interm2,Resto,Genero,CantidadS,np),!.
+
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado),articulo(Interm1,Interm2,Genero,CantidadS,np,indef),sustantivo(Interm2,Interm3,Genero,CantidadS,np),adjetivo(Interm3,Resto,Genero,CantidadS,np),!.
 
 % habia - pensado - unas - n - calorias
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,haberPasadoS),verbo(Interm,Interm1,Cantidad,Pronombre,dep,pensarPasado),articulo(Interm1,Interm2,femenino,CantidadS,np,indef),sustantivo(Interm2,Resto,femenino,CantidadS,np,rn),!.
@@ -127,11 +149,14 @@ sustantivo([ejercicio|Resto],Resto,masculino,singular,np).
 sustantivo([dieta|Resto],Resto,femenino,singular,np).
 sustantivo([mariscos|Resto],Resto,masculino,plural,np).
 sustantivo([semillas|Resto],Resto,femenino,plural,np).
+sustantivo([Numero|Resto],Resto,masculino,singular,np):-number(Numero).
 sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
 sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
 sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
-sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero).
-sustantivo([Numero,hora/s|Resto],Resto,masculino,plural,np,nh):-number(Numero).
+sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
+sustantivo([Numero,vez,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
+sustantivo([Numero,horas|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero\==1.
+sustantivo([Numero,hora|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero==1.
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
@@ -157,18 +182,19 @@ adjetivo([paleo|Resto],Resto,femenino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
-verbo([hago|Resto],Resto,singular,yo,dep,hacerActual).
+verbo([hago|Resto],Resto,singular,yo,dep,hacerPresentePP).
 verbo([hacer|Resto],Resto,singular,me,dep,hacerPresente).
-verbo([practico|Resto],Resto,singular,yo,dep,hacerPresente).
-verbo([corro|Resto],Resto,singular,yo,indep,accionPresente).
-verbo([entreno|Resto],Resto,singular,yo,indep,accionPresente).
+verbo([practico|Resto],Resto,singular,yo,dep,hacerPresentePP).
+verbo([corro|Resto],Resto,singular,yo,indep,actividadPresentePP).
+verbo([entreno|Resto],Resto,singular,yo,indep,actividadPresentePP).
+verbo([nado|Resto],Resto,singular,yo,indep,actividadPresentePP).
 verbo([tengo|Resto],Resto,singular,yo,dep,tenerPresente).
 verbo([estoy|Resto],Resto,singular,yo,dep,estarPresente).
 verbo([gustaria|Resto],Resto,singular,me,superdep,agradarFuturo).
 verbo([gustarian|Resto],Resto,plural,me,superdep,agradarFuturo).
 verbo([gusta|Resto],Resto,singular,me,dep,agradarPresente).
 verbo([gustan|Resto],Resto,plural,me,dep,agradarPresente).
-verbo([deseo|Resto],Resto,singular,yo,dep,agradarPresente).
+verbo([deseo|Resto],Resto,singular,yo,dep,quererPresentePP).
 verbo([diagnosticado|Resto],Resto,singular,me,dep,diagnosticarPasado).
 verbo([diagnosticaron|Resto],Resto,singular,me,dep,diagnosticarPasado).
 verbo([diagnosticado|Resto],Resto,singular,yo,dep,diagnosticarPasado).
@@ -176,13 +202,18 @@ verbo([fui|Resto],Resto,singular,yo,dep,serPasado).
 verbo([llevar|Resto],Resto,singular,me,dep,llevarPresente).
 verbo([llevar|Resto],Resto,singular,yo,dep,llevarPresente).
 verbo([quiero|Resto],Resto,singular,yo,superdep,quererPresentePP).
+verbo([quiero|Resto],Resto,singular,yo,dep,quererPresentePP).
 verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
 verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
 verbo([realizar|Resto],Resto,singular,me,dep,realizarPresente).
 
-
-
+% Agradecimientos
+agradecimiento([gracias|Resto],Resto,femenino).
+agradecimiento([muchas,gracias|Resto],Resto,femenino).
+agradecimiento([te,agradezco|Resto],Resto,masculino).
+agradecimiento([te,agradezco,mucho|Resto],Resto,masculino).
+agradecimiento([pura,vida|Resto],Resto,masculino).
 
 % Actividades
 % ([Actividad|Resto],Resto,Genero)
@@ -198,12 +229,14 @@ condicion([diabetes|Resto],Resto,femenino).
 % ([Saludo|Resto],Resto)
 saludo([hola|Resto],Resto).
 saludo([saludos|Resto],Resto).
+saludo([buenas,tardes|Resto],Resto).
+saludo([buenos,dias|Resto],Resto).
 
 
 % Funcion para que la lista que se le envie al BNF sea compuesta por atomos unicamente
 string_a_atom([],[]).
-string_a_atom([H|T],[AtomH|AtomT]):- atom_string(AtomH,H),string_a_atom(T,AtomT).
+string_a_atom([H|T],[AtomH|AtomT]):- (number(H) -> AtomH = H ; atom_string(AtomH,H)),string_a_atom(T,AtomT).
 
 % Funcion para leer entradas del cliente por la linea de comandos
-leer:- read_line_to_string(user_input,Oracion),procesar_cadena(Oracion,OracionListaStrings),string_a_atom(OracionListaStrings,OracionLista),nl,verifica(OracionLista).
+leer:- read_line_to_string(user_input,Oracion),procesar_cadena(Oracion,OracionListaStrings),string_a_atom(OracionListaStrings,OracionLista),verifica(OracionLista).
 
