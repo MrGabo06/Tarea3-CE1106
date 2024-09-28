@@ -122,7 +122,10 @@ verifica_calorias(Mensaje) :-
     agregar_a_lista(Palabra)).
 
 % Verificar si alguna palabra de la oración está en la lista predefinida
-verificar_palabra(Oracion, ListaPredefinida, PalabraEncontrada) :-
+verificar_palabra(OracionInicial, ListaPredefinida, PalabraEncontrada) :-
+    % Convertimos la cadena a minuscula para asegurarnos coincidencias con la base de datos
+    string_lower(OracionInicial,Oracion),
+
     % Dividimos la oración en palabras (lista de cadenas)
     split_string(Oracion, " ", "", ListaCadenas),
     
