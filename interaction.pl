@@ -60,16 +60,22 @@ realizar_preguntas:-
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
     verifica_dieta(Mensaje2)),
-    (write('cual es tu nivel de ejercicio'),nl,
+    (write('cual es tu nivel de ejercicio?'),nl,
     read_line_to_string(user_input, Mensaje3),
     verifica_actividad(Mensaje3)),
+    (write('practicas algun deporte?'),nl,
+    read_line_to_string(user_input, Mensaje4),
+    verifica_deporte(Mensaje4)),
+    (write('tienes una cantidad de calorias en mente?'),nl,
+    read_line_to_string(user_input, Mensaje5),
+    verifica_calorias(Mensaje5)),
     lista_coincidencias(Lista1),
     dieta(Lista2),
     compara_dieta(Lista1, Lista2).
 
 verifica_coincidencias(Mensaje) :-
-    ( verifica_padecimiento(Mensaje) ; 
-      verifica_actividad(Mensaje) ; 
+    ( verifica_padecimiento(Mensaje), 
+      verifica_actividad(Mensaje),
       verifica_dieta(Mensaje) ),
     lista_coincidencias(Lista1),
     dieta(Lista2),
@@ -90,6 +96,18 @@ verifica_padecimiento(Mensaje) :-
 verifica_actividad(Mensaje) :-
     verifica_negaciones(Mensaje);
     (nivel_actividad(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    agregar_a_lista(Palabra)).
+
+verifica_deporte(Mensaje) :-
+    verifica_negaciones(Mensaje);
+    (actividad(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    agregar_a_lista(Palabra)).
+
+verifica_calorias(Mensaje) :-
+    verifica_negaciones(Mensaje);
+    (calorias(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
     agregar_a_lista(Palabra)).
 
