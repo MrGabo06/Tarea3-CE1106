@@ -1,4 +1,4 @@
-:- dynamic lista_coincidencias/1.  % Declarar como dinámica
+:- dynamic lista_coincidencias/1.  % Declarar como dinÃ¡mica
 :- consult('database.pl').  % Cargar la base de datos.
 :- consult('bnf_final_code.pl').
 
@@ -6,7 +6,7 @@ lista_animales([perro, leon, gato, pez]).
 emociones([felicidad, tristeza, ira, sorpresa, miedo]).
 colores([rojo, azul, verde, amarillo, negro]).
 
-% Inicializar la lista de coincidencias vacía
+% Inicializar la lista de coincidencias vacÃ­a
 lista_coincidencias([]).
 
 % inicio del programa
@@ -121,18 +121,18 @@ verifica_calorias(Mensaje) :-
     verificar_palabra(Mensaje, Lista, Palabra),
     agregar_a_lista(Palabra)).
 
-% Verificar si alguna palabra de la oración está en la lista predefinida
+% Verificar si alguna palabra de la oraciÃ³n estÃ¡ en la lista predefinida
 verificar_palabra(OracionInicial, ListaPredefinida, PalabraEncontrada) :-
     % Convertimos la cadena a minuscula para asegurarnos coincidencias con la base de datos
     string_lower(OracionInicial,Oracion),
 
-    % Dividimos la oración en palabras (lista de cadenas)
+    % Dividimos la oraciÃ³n en palabras (lista de cadenas)
     split_string(Oracion, " ", "", ListaCadenas),
 
-    % Convertimos las cadenas en átomos para comparar
+    % Convertimos las cadenas en Ã¡tomos para comparar
     maplist(string_to_atom, ListaCadenas, ListaAtomos),
 
-    % Verificamos si alguna palabra de la lista de la oración está en la lista predefinida
+    % Verificamos si alguna palabra de la lista de la oraciÃ³n estÃ¡ en la lista predefinida
     miembro_de_lista(PalabraEncontrada, ListaAtomos),
     miembro_de_lista(PalabraEncontrada, ListaPredefinida).
 
@@ -144,7 +144,7 @@ miembro_de_lista(Elemento, [_|Resto]) :-
 % Agregar una palabra a la lista de coincidencias
 agregar_a_lista(Palabra) :-
     lista_coincidencias(Lista),
-    \+ miembro_de_lista(Palabra, Lista),  % Solo agregar si no está ya en la lista
+    \+ miembro_de_lista(Palabra, Lista),  % Solo agregar si no estÃ¡ ya en la lista
     retract(lista_coincidencias(Lista)),  % Eliminar la lista anterior
     assertz(lista_coincidencias([Palabra | Lista])).  % Agregar la nueva palabra
 
@@ -162,13 +162,13 @@ imprimir_lista(Lista) :-
         writeln(Ultimo)
     ).
 
-% Predicado para obtener el último elemento de una lista
+% Predicado para obtener el Ãºltimo elemento de una lista
 ultimo_elemento([Ultimo], Ultimo).  % Caso base: cuando solo queda un elemento
 ultimo_elemento([_|Resto], Ultimo) :-
-    ultimo_elemento(Resto, Ultimo).  % Seguir recorriendo la lista hasta el último elemento
+    ultimo_elemento(Resto, Ultimo).  % Seguir recorriendo la lista hasta el Ãºltimo elemento
 
 
-% Verificar si al menos tres elementos de la primera lista están en la segunda lista
+% Verificar si al menos tres elementos de la primera lista estÃ¡n en la segunda lista
 compara_dieta(Lista1, Lista2) :-
     contar_comunes(Lista1, Lista2, 0, Cuenta),
     (Cuenta >= 3,
@@ -184,7 +184,7 @@ dieta_random(Lista1,Lista2):-
     (Cuenta = 0,
     imprimir_lista(Lista2)).
 
-% Recibe dos listas, un contador inicial y devuelve el número de elementos comunes
+% Recibe dos listas, un contador inicial y devuelve el nÃºmero de elementos comunes
 contar_comunes([], _, Cuenta, Cuenta).
 contar_comunes([H|T], Lista2, CuentaActual, CuentaFinal) :-
     ( miembro_de_lista(H, Lista2) ->
