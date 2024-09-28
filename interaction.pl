@@ -57,23 +57,23 @@ verifica_preferencia(Mensaje) :-
 realizar_preguntas:-
     (write('Tienes algun padecimiento?'),nl,
     read_line_to_string(user_input,Mensaje),
-    bnf_verif(Mensaje),
+    %bnf_verif(Mensaje),
     verifica_padecimiento(Mensaje)),
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
-    bnf_verif(Mensaje2),
+    %bnf_verif(Mensaje2),
     verifica_dieta(Mensaje2)),
     (write('practicas algun deporte?'),nl,
     read_line_to_string(user_input, Mensaje4),
-    bnf_verif(Mensaje4),
+    %bnf_verif(Mensaje4),
     verifica_deporte(Mensaje4)),
     (write('cual es tu nivel de ejercicio?'),nl,
     read_line_to_string(user_input, Mensaje3),
-    bnf_verif(Mensaje3),
+   % bnf_verif(Mensaje3),
     verifica_actividad(Mensaje3)),
     (write('tienes una cantidad de calorias en mente?'),nl,
     read_line_to_string(user_input, Mensaje5),
-    bnf_verif(Mensaje5),
+    %bnf_verif(Mensaje5),
     verifica_calorias(Mensaje5)),
     lista_coincidencias(Lista1),
     dieta(Lista2),
@@ -134,11 +134,7 @@ verificar_palabra(OracionInicial, ListaPredefinida, PalabraEncontrada) :-
     
     % Verificamos si alguna palabra de la lista de la oración está en la lista predefinida
     miembro_de_lista(PalabraEncontrada, ListaAtomos),
-    miembro_de_lista(PalabraEncontrada, ListaPredefinida),
-    
-    % Si se encuentra, devolvemos la palabra encontrada
-    writeln('Se encontró una palabra de la lista predefinida en la oración: '),
-    writeln(PalabraEncontrada).
+    miembro_de_lista(PalabraEncontrada, ListaPredefinida).
 
 % Predicado para verificar si un elemento es miembro de una lista
 miembro_de_lista(Elemento, [Elemento|_]).
@@ -155,10 +151,15 @@ agregar_a_lista(Palabra) :-
 % Imprimir la lista de coincidencias
 imprimir_lista(Lista) :-
     ( Lista = [] -> 
-        writeln('No se encontraron coincidencias.')
+        dieta_predefinida(Lista2),
+        ultimo_elemento(Lista2,Ultimoe),
+        writeln('Puedes iniciar con esta dieta:'),
+        writeln(Ultimoe)
+        
     ; 
         ultimo_elemento(Lista, Ultimo),
-        write('Último elemento encontrado: '), writeln(Ultimo)
+        writeln('Puedes iniciar con esta dieta:'),
+        writeln(Ultimo)
     ).
 
 % Predicado para obtener el último elemento de una lista

@@ -286,7 +286,13 @@ actividad([karate|Resto],Resto,masculino).
 
 % Condiciones
 % ([Condicion|Resto],Resto,Genero)
+condicion([dislipidemia|Resto],Resto,femenino).
+condicion([hipercolesterolemia|Resto],Resto,femenino).
 condicion([diabetes|Resto],Resto,femenino).
+condicion([obesidad|Resto],Resto,femenino).
+condicion([desnutricion|Resto],Resto,femenino).
+condicion([intolerancia_gluten|Resto],Resto,femenino).
+
 
 % Saludo
 % ([Saludo|Resto],Resto)

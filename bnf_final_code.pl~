@@ -279,8 +279,6 @@ actividad([surf|Resto],Resto,masculino).
 actividad([boxeo|Resto],Resto,masculino).
 actividad([karate|Resto],Resto,masculino).
 
-
-
 % Condiciones
 % ([Condicion|Resto],Resto,Genero)
 condicion([diabetes|Resto],Resto,femenino).
