@@ -28,15 +28,26 @@ es_palabra(Palabra,[Palabra|Resto],Resto).
 % Funcion para verificar una oracion
 verifica(Oracion):- oracion(Oracion,[]).
 
+
 % Estructuras de oraciones
+% Oracion de aceptacion o negacion
+oracion(Completa,Resto):- acept_neg(Completa,Resto),!.
+
+% Oracion de condicion o actividad
+oracion(Completa,Resto):- condicion(Completa,Resto,_),!.
+oracion(Completa,Resto):- actividad(Completa,Resto,_),!.
+
 % Oracion que se divide en un pronombre (yo) y un predicado
 oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),predicado(Interm,Resto,_,Cantidad,Pronombre),!.
+oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),acept_neg(Interm,Interm1),predicado(Interm1,Resto,_,Cantidad,Pronombre),!.
 
 % Oracion que se divide en un me y un predicado condicional (ej: me gusta/gustaria...)
-oracion(Completa,Resto):- es_palabra(me,Completa,Interm),predicado(Interm,Resto,_,_,me),!.
+oracion(Completa,Resto):- persona(Completa,Interm,_,_,me),predicado(Interm,Resto,_,_,me),!.
+oracion(Completa,Resto):- acept_neg(Completa,Preinterm),persona(Preinterm,Interm,_,_,me),predicado(Interm,Resto,_,_,me),!.
 
 % Oracion con pronombre (yo) implicito
 oracion(Completa,Resto):- predicado(Completa,Resto,_,singular,yo),!.
+oracion(Completa,Resto):- acept_neg(Completa,Interm),predicado(Interm,Resto,_,singular,yo),!.
 
 % oracion compuesta por solo un numero
 oracion(Completa,Resto):- sustantivo(Completa,Resto,masculino,singular,np),!.
@@ -50,6 +61,7 @@ oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),es_palabra(nutritec,
 oracion(Completa,Resto):- agradecimiento(Completa,Resto,_),!.
 oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),es_palabra(nutritec,Interm,Interm1),oracion(Interm1,Resto),!.
 oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),oracion(Interm,Resto),!.
+
 
 % Estructuras de predicados
 % Predicados de un sólo verbo independiente
@@ -97,9 +109,9 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerPresentePP),actividad(Interm,Interm1,_),sustantivo(Interm1,Interm2,_,_,np,nv),sustantivo(Interm2,Resto,_,_,np,nh),!.
 
 % deseo - articulo - sustantivo
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,indef),sustantivo(Interm1,Resto,GeneroS,CantidadS,np),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,_),sustantivo(Interm1,Resto,GeneroS,CantidadS,np),!.
 
-predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,indef),sustantivo(Interm1,Interm2,GeneroS,CantidadS,np),adjetivo(Interm2,Resto,GeneroS,CantidadS,np),!.
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,_),sustantivo(Interm1,Interm2,GeneroS,CantidadS,np),adjetivo(Interm2,Resto,GeneroS,CantidadS,np),!.
 
 % gustaria - llevar - un - estilo de vida saludable
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,llevarPresente),articulo(Interm1,Interm2,GeneroV,Cantidad,np,indef),sustantivo(Interm2,Interm3,GeneroV,Cantidad,np,svp),adjetivo(Interm3,Resto,GeneroV,Cantidad,np),!.
@@ -124,12 +136,11 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % fui - diagnosticado - con - condicion
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,serPasado),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
 
-% Palabras conocidas
 
+% Palabras conocidas
 % Aceptacion/negacion:
 acept_neg([si|Resto],Resto).
 acept_neg([no|Resto],Resto).
-acept_neg([''|Resto],Resto).
 
 % Articulos:
 % ([Articulo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np),Definicion(def/indef))
@@ -141,7 +152,6 @@ articulo([el|Resto],Resto,masculino,singular,np,def).
 articulo([la|Resto],Resto,femenino,singular,np,def).
 articulo([los|Resto],Resto,masculino,plural,np,def).
 articulo([las|Resto],Resto,femenino,plural,np,def).
-
 
 % Sustantivos
 % ([Sustantivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
@@ -155,6 +165,8 @@ sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
 sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
 sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
 sustantivo([Numero,vez,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
+sustantivo([Numero,veces,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
+sustantivo([Numero,vez,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
 sustantivo([Numero,horas|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero\==1.
 sustantivo([Numero,hora|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero==1.
 
@@ -178,7 +190,6 @@ adjetivo([mediterranea|Resto],Resto,femenino,singular,np).
 adjetivo([carnivora|Resto],Resto,femenino,singular,np).
 adjetivo([gluten_free|Resto],Resto,femenino,singular,np).
 adjetivo([paleo|Resto],Resto,femenino,singular,np).
-
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
@@ -219,7 +230,7 @@ agradecimiento([pura,vida|Resto],Resto,masculino).
 % ([Actividad|Resto],Resto,Genero)
 actividad([atletismo|Resto],Resto,masculino).
 actividad([ejercicio|Resto],Resto,masculino).
-actividad([natacion|Resto],Resto,masculino).
+actividad([natacion|Resto],Resto,femenino).
 
 % Condiciones
 % ([Condicion|Resto],Resto,Genero)
