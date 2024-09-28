@@ -57,23 +57,23 @@ verifica_preferencia(Mensaje) :-
 realizar_preguntas:-
     (write('Tienes algun padecimiento?'),nl,
     read_line_to_string(user_input,Mensaje),
-    bnf_verif(Mensaje),
+    %bnf_verif(Mensaje),
     verifica_padecimiento(Mensaje)),
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
-    bnf_verif(Mensaje2),
+    %bnf_verif(Mensaje2),
     verifica_dieta(Mensaje2)),
     (write('practicas algun deporte?'),nl,
     read_line_to_string(user_input, Mensaje4),
-    bnf_verif(Mensaje4),
+    %bnf_verif(Mensaje4),
     verifica_deporte(Mensaje4)),
     (write('cual es tu nivel de ejercicio?'),nl,
     read_line_to_string(user_input, Mensaje3),
-    bnf_verif(Mensaje3),
+   % bnf_verif(Mensaje3),
     verifica_actividad(Mensaje3)),
     (write('tienes una cantidad de calorias en mente?'),nl,
     read_line_to_string(user_input, Mensaje5),
-    bnf_verif(Mensaje5),
+    %bnf_verif(Mensaje5),
     verifica_calorias(Mensaje5)),
     lista_coincidencias(Lista1),
     dieta(Lista2),
@@ -84,7 +84,7 @@ realizar_preguntas:-
     dieta_random(Lista3,Lista4).
 
 verifica_coincidencias(Mensaje) :-
-    ( verifica_padecimiento(Mensaje),
+    ( verifica_padecimiento(Mensaje), 
       verifica_actividad(Mensaje),
       verifica_dieta(Mensaje) ),
     lista_coincidencias(Lista1),
@@ -128,10 +128,10 @@ verificar_palabra(OracionInicial, ListaPredefinida, PalabraEncontrada) :-
 
     % Dividimos la oración en palabras (lista de cadenas)
     split_string(Oracion, " ", "", ListaCadenas),
-
+    
     % Convertimos las cadenas en átomos para comparar
     maplist(string_to_atom, ListaCadenas, ListaAtomos),
-
+    
     % Verificamos si alguna palabra de la lista de la oración está en la lista predefinida
     miembro_de_lista(PalabraEncontrada, ListaAtomos),
     miembro_de_lista(PalabraEncontrada, ListaPredefinida).
@@ -150,13 +150,13 @@ agregar_a_lista(Palabra) :-
 
 % Imprimir la lista de coincidencias
 imprimir_lista(Lista) :-
-    ( Lista = [] ->
+    ( Lista = [] -> 
         dieta_predefinida(Lista2),
         ultimo_elemento(Lista2,Ultimoe),
         writeln('Puedes iniciar con esta dieta:'),
         writeln(Ultimoe)
-
-    ;
+        
+    ; 
         ultimo_elemento(Lista, Ultimo),
         writeln('Puedes iniciar con esta dieta:'),
         writeln(Ultimo)
