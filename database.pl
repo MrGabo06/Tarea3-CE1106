@@ -420,3 +420,10 @@ Merienda 2: Batido de proteínas vegano.
 Cena: Tofu (150g) con espárragos asados y brócoli.
 Notas: Tomar mínimo 3 litros diarios de agua.']).
 
+dieta_predefinida([carnivora, hipercolesterolemia, '2300', caminata, yoga, inicial, 'Plan de Alimentacion:
+Desayuno: 3 claras de huevo con carne de res (150g).
+Merienda 1: 20g de nueces.
+Almuerzo: Pollo a la parrilla (200g) con espinacas.
+Merienda 2: Jamón serrano con queso bajo en grasa.
+Cena: Filete de cerdo (200g) con brócoli.
+Notas: Tomar mínimo 3 litros diarios de agua.']).

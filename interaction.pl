@@ -134,11 +134,7 @@ verificar_palabra(OracionInicial, ListaPredefinida, PalabraEncontrada) :-
     
     % Verificamos si alguna palabra de la lista de la oración está en la lista predefinida
     miembro_de_lista(PalabraEncontrada, ListaAtomos),
-    miembro_de_lista(PalabraEncontrada, ListaPredefinida),
-    
-    % Si se encuentra, devolvemos la palabra encontrada
-    writeln('Se encontró una palabra de la lista predefinida en la oración: '),
-    writeln(PalabraEncontrada).
+    miembro_de_lista(PalabraEncontrada, ListaPredefinida).
 
 % Predicado para verificar si un elemento es miembro de una lista
 miembro_de_lista(Elemento, [Elemento|_]).
@@ -155,10 +151,15 @@ agregar_a_lista(Palabra) :-
 % Imprimir la lista de coincidencias
 imprimir_lista(Lista) :-
     ( Lista = [] -> 
-        writeln('No se encontraron coincidencias.')
+        dieta_predefinida(Lista2),
+        ultimo_elemento(Lista2,Ultimoe),
+        writeln('Puedes iniciar con esta dieta:'),
+        writeln(Ultimoe)
+        
     ; 
         ultimo_elemento(Lista, Ultimo),
-        write('Último elemento encontrado: '), writeln(Ultimo)
+        writeln('Puedes iniciar con esta dieta:'),
+        writeln(Ultimo)
     ).
 
 % Predicado para obtener el último elemento de una lista
