@@ -60,18 +60,22 @@ realizar_preguntas:-
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
     verifica_dieta(Mensaje2)),
-    (write('cual es tu nivel de ejercicio?'),nl,
-    read_line_to_string(user_input, Mensaje3),
-    verifica_actividad(Mensaje3)),
     (write('practicas algun deporte?'),nl,
     read_line_to_string(user_input, Mensaje4),
     verifica_deporte(Mensaje4)),
+    (write('cual es tu nivel de ejercicio?'),nl,
+    read_line_to_string(user_input, Mensaje3),
+    verifica_actividad(Mensaje3)),
     (write('tienes una cantidad de calorias en mente?'),nl,
     read_line_to_string(user_input, Mensaje5),
     verifica_calorias(Mensaje5)),
     lista_coincidencias(Lista1),
     dieta(Lista2),
-    compara_dieta(Lista1, Lista2).
+    compara_dieta(Lista1, Lista2);
+    lista_coincidencias(Lista3),
+    dieta(Lista4),
+    no_dieta(Lista3,Lista4);
+    dieta_random(Lista3,Lista4).
 
 verifica_coincidencias(Mensaje) :-
     ( verifica_padecimiento(Mensaje), 
@@ -158,8 +162,17 @@ ultimo_elemento([_|Resto], Ultimo) :-
 compara_dieta(Lista1, Lista2) :-
     contar_comunes(Lista1, Lista2, 0, Cuenta),
     (Cuenta >= 3,
-    imprimir_lista(Lista2));
-    write('Lo siento, no tengo una dieta que se acople a tus necesidades en este momento').
+    imprimir_lista(Lista2)).
+
+no_dieta(Lista1,Lista2):-
+    contar_comunes(Lista1, Lista2, 0, Cuenta),
+    (Cuenta >=1,
+    write('Lo siento, no tengo una dieta para tus necesidades')).
+
+dieta_random(Lista1,Lista2):-
+    contar_comunes(Lista1, Lista2, 0, Cuenta),
+    (Cuenta = 0,
+    imprimir_lista(Lista2)).
 
 % Recibe dos listas, un contador inicial y devuelve el número de elementos comunes
 contar_comunes([], _, Cuenta, Cuenta).
