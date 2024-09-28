@@ -169,6 +169,26 @@ sustantivo([Numero,veces,por,semana|Resto],Resto,masculino,plural,np,nv):-number
 sustantivo([Numero,vez,por,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero==1.
 sustantivo([Numero,horas|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero\==1.
 sustantivo([Numero,hora|Resto],Resto,masculino,plural,np,nh):-number(Numero),Numero==1.
+sustantivo([dislipidemia|Resto],Resto,femenino,singular,np).
+sustantivo([peso|Resto],Resto,masculino,singular,np).
+sustantivo([sobrepeso|Resto],Resto,masculino,singular,np).
+sustantivo([calorias|Resto],Resto,femenino,plural,np).
+sustantivo([ciclismo|Resto],Resto,masculino,singular,np).
+sustantivo([desnutricion|Resto],Resto,femenino,singular,np).
+sustantivo([vegetales|Resto],Resto,masculino,plural,np).
+sustantivo([lentejas|Resto],Resto,femenino,plural,np).
+sustantivo([gallo,pinto|Resto],Resto,masculino,singular,np).
+sustantivo([pollo|Resto],Resto,masculino,singular,np).
+sustantivo([pescado|Resto],Resto,masculino,singular,np).
+sustantivo([bistec|Resto],Resto,masculino,singular,np).
+sustantivo([verduras|Resto],Resto,femenino,plural,np).
+sustantivo([fruta|Resto],Resto,femenino,singular,np).
+sustantivo([papaya|Resto],Resto,femenino,singular,np).
+sustantivo([yogurt|Resto],Resto,masculino,singular,np).
+sustantivo([granola|Resto],Resto,femenino,singular,np).
+sustantivo([cafe|Resto],Resto,masculino,singular,np).
+sustantivo([aguacate|Resto],Resto,masculino,singular,np).
+
 
 % Persona
 % ([Pronombre|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre)
@@ -184,12 +204,20 @@ adjetivo([keto|Resto],Resto,femenino,singular,np).
 adjetivo([proteica|Resto],Resto,femenino,singular,np).
 adjetivo([vegetariana|Resto],Resto,femenino,singular,np).
 adjetivo([alcalina|Resto],Resto,femenino,singular,np).
-adjetivo([baja_en_grasas|Resto],Resto,femenino,singular,np).
+adjetivo([baja,en,grasas|Resto],Resto,femenino,singular,np).
 adjetivo([vegana|Resto],Resto,femenino,singular,np).
 adjetivo([mediterranea|Resto],Resto,femenino,singular,np).
 adjetivo([carnivora|Resto],Resto,femenino,singular,np).
-adjetivo([gluten_free|Resto],Resto,femenino,singular,np).
+adjetivo([gluten,free|Resto],Resto,femenino,singular,np).
 adjetivo([paleo|Resto],Resto,femenino,singular,np).
+adjetivo([sobrepeso|Resto],Resto,masculino,singular,np).
+adjetivo([normal|Resto],Resto,masculino,singular,np).
+adjetivo([keto|Resto],Resto,masculino,singular,np).
+adjetivo([vegetariano|Resto],Resto,masculino,singular,np).
+adjetivo([bajo,en,grasas|Resto],Resto,masculino,singular,np).
+adjetivo([mediterraneo|Resto],Resto,masculino,singular,np).
+
+
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
@@ -218,6 +246,12 @@ verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
 verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
 verbo([realizar|Resto],Resto,singular,me,dep,realizarPresente).
+verbo([realizo|Resto],Resto,singular,yo,indep,actividadPresentePP).
+verbo([practico|Resto],Resto,singular,yo,indep,actividadPresentePP).
+verbo([correria|Resto],Resto,singular,yo,indep,actividadCondicionalPP).
+verbo([pienso|Resto],Resto,singular,yo,dep,pensarPresente).
+verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
+
 
 % Agradecimientos
 agradecimiento([gracias|Resto],Resto,femenino).
