@@ -55,25 +55,29 @@ verifica_preferencia(Mensaje) :-
     realizar_preguntas.
 
 realizar_preguntas:-
+    (write('Tienes algun alimento que prefieras no comer?'),nl,
+    read_line_to_string(user_input, Mensaje6),
+    %bnf_verif(Mensaje6),
+    verifica_alimentos(Mensaje6)),
     (write('Tienes algun padecimiento?'),nl,
     read_line_to_string(user_input,Mensaje),
-    bnf_verif(Mensaje),
+    %bnf_verif(Mensaje),
     verifica_padecimiento(Mensaje)),
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
-    bnf_verif(Mensaje2),
+    %bnf_verif(Mensaje2),
     verifica_dieta(Mensaje2)),
     (write('practicas algun deporte?'),nl,
     read_line_to_string(user_input, Mensaje4),
-    bnf_verif(Mensaje4),
+    %bnf_verif(Mensaje4),
     verifica_deporte(Mensaje4)),
     (write('cual es tu nivel de ejercicio?'),nl,
     read_line_to_string(user_input, Mensaje3),
-    bnf_verif(Mensaje3),
+    %bnf_verif(Mensaje3),
     verifica_actividad(Mensaje3)),
     (write('tienes una cantidad de calorias en mente?'),nl,
     read_line_to_string(user_input, Mensaje5),
-    bnf_verif(Mensaje5),
+    %bnf_verif(Mensaje5),
     verifica_calorias(Mensaje5)),
     lista_coincidencias(Lista1),
     dieta(Lista2),
@@ -120,6 +124,12 @@ verifica_calorias(Mensaje) :-
     (calorias(Lista),
     verificar_palabra(Mensaje, Lista, Palabra),
     agregar_a_lista(Palabra)).
+
+verifica_alimentos(Mensaje) :-
+    (alimentos(Lista),
+    verificar_palabra(Mensaje, Lista, Palabra),
+    agregar_a_lista(Palabra));
+    verifica_negaciones(Mensaje).
 
 % Verificar si alguna palabra de la oraciÃ³n estÃ¡ en la lista predefinida
 verificar_palabra(OracionInicial, ListaPredefinida, PalabraEncontrada) :-
