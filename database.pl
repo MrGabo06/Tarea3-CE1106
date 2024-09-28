@@ -36,9 +36,9 @@ padecimiento([desnutricion, 'Deficiencia de nutrientes', [proteica, carnivora]])
 padecimiento([intolerancia_gluten, 'Intolerancia al gluten', [gluten_free, paleo]]).
 
 % Nivel de actividad: nombre, rango.
-nivel_actividad([inicial, '0-2 veces por semana']).
-nivel_actividad([intermedio, '3-4 veces por semana']).
-nivel_actividad([avanzado, '5 o más veces por semana']).
+nivel_actividad([inicial, '0','1','2']).
+nivel_actividad([intermedio, '3','4']).
+nivel_actividad([avanzado, '5','6','7']).
 
 %Actividades: nombre, descripción.
 actividad([natacion, 'Actividad acuática que trabaja todos los músculos del cuerpo.']).
@@ -70,7 +70,7 @@ actividad([karate, 'Actividad que mejora la resistencia y la coordinación.']).
 
 calorias(['1800','2000','2200','2300','2400','2500']).
 
-dieta([keto, obesidad, '2000', ciclismo, correr, natacion, avanzado, 'Plan de Alimentacion:
+dieta([keto, obesidad, '2000', ciclismo, correr, natacion, avanzado, '5','6','7', 'Plan de Alimentacion:
 Desayuno: 2 huevos con 1/4 aguacate y espinacas.
 Merienda 1: 10 almendras.
 Almuerzo: Pollo a la parrilla (150g) con espinacas (1 taza) y aceite de oliva.
@@ -78,7 +78,7 @@ Merienda 2: Yogur griego (100g) con nueces.
 Cena: Salmón (120g) con brócoli (1 taza) y aceite de coco.
 Notas: Tomar mínimo 3 litros diarios de agua.']).
 
-dieta([proteica, desnutricion, '2500', pesas, crossfit, avanzado, 'Plan de Alimentacion:
+dieta([proteica, desnutricion, '2500', pesas, crossfit, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: 4 claras de huevo con 1 aguacate.
 Merienda 1: 30g de almendras.
 Almuerzo: Pollo a la parrilla (200g) con quinoa (1 taza).
@@ -86,7 +86,7 @@ Merienda 2: Batido de proteínas con plátano y avena.
 Cena: Bistec (200g) con batata al horno.
 Notas: Tomar mínimo 4 litros diarios de agua.']).
 
-dieta([vegetariana, hipercolesterolemia, '1800', yoga, pilates, intermedio, 'Plan de Alimentacion:
+dieta([vegetariana, hipercolesterolemia, '1800', yoga, pilates, intermedio, '3','4', 'Plan de Alimentacion:
 Desayuno: Tostada de pan integral con aguacate y tomate.
 Merienda 1: 15 almendras.
 Almuerzo: Ensalada de garbanzos con espinacas, aguacate, y semillas de chía.
@@ -94,7 +94,7 @@ Merienda 2: Yogur de coco con nueces.
 Cena: Tofu a la plancha con brócoli y zanahorias al vapor.
 Notas: Tomar mínimo 2 litros diarios de agua.']).
 
-dieta([alcalina, diabetes, '2200', caminata, patinaje, inicial, 'Plan de Alimentacion:
+dieta([alcalina, diabetes, '2200', caminata, patinaje, inicial, '0','1','2', 'Plan de Alimentacion:
 Desayuno: Smoothie de espinacas, plátano y leche de almendra.
 Merienda 1: 10 nueces.
 Almuerzo: Ensalada de pollo (120g) con espinacas, aguacate y pepino.
@@ -118,7 +118,7 @@ Merienda 2: Hummus con zanahorias crudas.
 Cena: Lentejas estofadas con espinacas y tomate.
 Notas: Tomar mínimo 2 litros diarios de agua.']).
 
-dieta([mediterranea, diabetes, '2200', caminata, patinaje, inicial, 'Plan de Alimentacion:
+dieta([mediterranea, diabetes, '2200', caminata, patinaje, inicial, '0','1','2','Plan de Alimentacion:
 Desayuno: Yogur griego con nueces y fresas.
 Merienda 1: 10 almendras.
 Almuerzo: Ensalada con atún, aguacate, aceitunas y espinacas.
