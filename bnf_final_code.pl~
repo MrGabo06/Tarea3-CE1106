@@ -144,7 +144,6 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,serPasado),verbo(Interm,Interm1,Cantidad,Pronombre,dep,diagnosticarPasado),es_palabra(con,Interm1,Interm2),condicion(Interm2,Resto,_),!.
 
 
-
 % Palabras conocidas
 % Aceptacion/negacion:
 acept_neg([si|Resto],Resto).
