@@ -13,7 +13,7 @@ tipo_dieta([gluten_free, 'Dieta sin gluten para personas con intolerancia.']).
 tipo_dieta([paleo, 'Dieta basada en alimentos paleolÃ­ticos, excluyendo granos y procesados.']).
 
 % Lista ampliada de saludos (saludos)
-saludos([hola, buenas, saludos, hey]).
+saludos([hola, buenas, saludos, hey, buenos]).
 
 % Lista ampliada de preferencias (preferencias)
 preferencias([quiero, gustaria, gusta, prefiero, deseo, anhelo]).

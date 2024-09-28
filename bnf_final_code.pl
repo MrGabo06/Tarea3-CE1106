@@ -44,24 +44,35 @@ oracion(Completa,Resto):- adjetivo(Completa,Resto,_,_,_),!.
 oracion(Completa,Resto):- condicion(Completa,Resto,_),!.
 oracion(Completa,Resto):- actividad(Completa,Resto,_),!.
 
-% Oracion que se divide en un pronombre (yo) y un predicado
+% Oracion que se divide en un pronombre (yo) y un predicado + otra oracion (opcional)
 oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),predicado(Interm,Resto,_,Cantidad,Pronombre),!.
 oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),acept_neg(Interm,Interm1),predicado(Interm1,Resto,_,Cantidad,Pronombre),!.
+
+oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),predicado(Interm,Interm1,_,Cantidad,Pronombre),es_palabra(y,Interm1,Interm2),oracion(Interm2,Resto),!.
+oracion(Completa,Resto):- persona(Completa,Interm,_,Cantidad,Pronombre),acept_neg(Interm,Interm1),predicado(Interm1,Interm2,_,Cantidad,Pronombre),es_palabra(y,Interm2,Interm3),oracion(Interm3,Resto),!.
 
 % Oracion que se divide en un me y un predicado condicional (ej: me gusta/gustaria...)
 oracion(Completa,Resto):- persona(Completa,Interm,_,_,me),predicado(Interm,Resto,_,_,me),!.
 oracion(Completa,Resto):- acept_neg(Completa,Preinterm),persona(Preinterm,Interm,_,_,me),predicado(Interm,Resto,_,_,me),!.
 
+oracion(Completa,Resto):- persona(Completa,Interm,_,_,me),predicado(Interm,Interm1,_,_,me),es_palabra(y,Interm1,Interm2),oracion(Interm2,Resto),!.
+oracion(Completa,Resto):- acept_neg(Completa,Preinterm),persona(Preinterm,Interm,_,_,me),predicado(Interm,Interm1,_,_,me),es_palabra(y,Interm1,Interm2),oracion(Interm2,Resto),!.
+
 % Oracion con pronombre (yo) implicito
 oracion(Completa,Resto):- predicado(Completa,Resto,_,singular,yo),!.
 oracion(Completa,Resto):- acept_neg(Completa,Interm),predicado(Interm,Resto,_,singular,yo),!.
 
+oracion(Completa,Resto):- predicado(Completa,Interm,_,singular,yo),es_palabra(y,Interm,Interm1),oracion(Interm1,Resto),!.
+oracion(Completa,Resto):- acept_neg(Completa,Interm),predicado(Interm,Interm1,_,singular,yo),es_palabra(y,Interm1,Interm2),oracion(Interm2,Resto),!.
+
 % oracion compuesta por solo un numero
 oracion(Completa,Resto):- sustantivo(Completa,Resto,masculino,singular,np),!.
 
-% Oracion con saludo simple
+% Oracion con saludo simple y otra oracion encadenada (opcional)
 oracion(Completa,Resto):- saludo(Completa,Interm),es_palabra(nutritec,Interm,Resto),!.
 oracion(Completa,Resto):- saludo(Completa,Interm),es_palabra(nutritec,Interm,Interm1),oracion(Interm1,Resto),!.
+oracion(Completa,Resto):- saludo(Completa,Resto),!.
+oracion(Completa,Resto):- saludo(Completa,Interm),oracion(Interm,Resto),!.
 
 % Oracion de agradecimiento
 oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),es_palabra(nutritec,Interm,Resto),!.
@@ -97,6 +108,9 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),articulo(Interm,Interm1,Genero,Cantidad,np,indef),sustantivo(Interm1,Interm2,Genero,Cantidad,np),adjetivo(Interm2,Resto,Genero,Cantidad,np),!.
 
+% gustaria - objetivo
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),objetivo(Interm,Resto).
+
 %gustaria - realizar - articulo - sustantivo - adjetivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,superdep,agradarFuturo),verbo(Interm,Interm1,Cantidad,Pronombre,dep,realizarPresente),articulo(Interm1,Interm2,Genero1,Cantidad,np,indef),sustantivo(Interm2,Interm3,Genero1,Cantidad,np),adjetivo(Interm3,Resto,Genero1,Cantidad,np),!.
 
@@ -105,6 +119,9 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 
 % gusta/n - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,Genero,Cantidad,np,def),sustantivo(Interm1,Resto,Genero,Cantidad,np),!.
+
+% gusta/n - articulo - sustantivo - adjetivo
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),articulo(Interm,Interm1,GeneroS,CantidadS,np,def),sustantivo(Interm1,Interm2,GeneroS,CantidadS,np),adjetivo(Interm2,Resto,GeneroS,CantidadS,np),!.
 
 % gusta - hacer - actividad
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,agradarPresente),verbo(Interm,Interm1,singular,me,dep,hacerPresente),actividad(Interm1,Resto,_),!.
@@ -115,8 +132,12 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 % yo - hago - actividad - n - veces - a - la - semana - n horas
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,hacerPresentePP),actividad(Interm,Interm1,_),sustantivo(Interm1,Interm2,_,_,np,nv),sustantivo(Interm2,Resto,_,_,np,nh),!.
 
-% deseo - articulo - sustantivo
+% deseo (y sinonimos) - articulo - sustantivo
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,_),sustantivo(Interm1,Resto,GeneroS,CantidadS,np),!.
+
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm1,Cantidad,Pronombre,dep,quererPresentePP),sustantivo(Interm1,Resto,_,_,np),!.
+
+predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm1,Cantidad,Pronombre,dep,quererPresentePP),objetivo(Interm1,Resto),!.
 
 predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,Pronombre,dep,quererPresentePP),articulo(Interm,Interm1,GeneroS,CantidadS,np,_),sustantivo(Interm1,Interm2,GeneroS,CantidadS,np),adjetivo(Interm2,Resto,GeneroS,CantidadS,np),!.
 
@@ -150,6 +171,14 @@ predicado(Completa,Resto,_,Cantidad,Pronombre):- verbo(Completa,Interm,Cantidad,
 acept_neg([si|Resto],Resto).
 acept_neg([no|Resto],Resto).
 
+% Objetivos
+% ([Articulo|Resto],Resto)
+objetivo([ganar,musculo|Resto],Resto).
+objetivo([subir,musculo|Resto],Resto).
+objetivo([perder,grasa|Resto],Resto).
+objetivo([bajar,grasa|Resto],Resto).
+objetivo([mantener,mi,peso|Resto],Resto).
+
 % Articulos:
 % ([Articulo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np),Definicion(def/indef))
 articulo([un|Resto],Resto,masculino,singular,np,indef).
@@ -163,7 +192,6 @@ articulo([las|Resto],Resto,femenino,plural,np,def).
 
 % Sustantivos
 % ([Sustantivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
-sustantivo([ejercicio|Resto],Resto,masculino,singular,np).
 sustantivo([dieta|Resto],Resto,femenino,singular,np).
 sustantivo([mariscos|Resto],Resto,masculino,plural,np).
 sustantivo([semillas|Resto],Resto,femenino,plural,np).
@@ -172,8 +200,9 @@ sustantivo([calorias|Resto],Resto,femenino,plural,np).
 sustantivo([vegetales|Resto],Resto,masculino,plural,np).
 sustantivo([carne|Resto],Resto,femenino,singular,np).
 sustantivo([carnes|Resto],Resto,femenino,plural,np).
-sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
 sustantivo([lacteos|Resto],Resto,masculino,plural,np).
+sustantivo([preferencias|Resto],Resto,femenino,plural,np).
+sustantivo([vida|Resto],Resto,femenino,singular,np,vid).
 sustantivo([estilo,de,vida|Resto],Resto,masculino,singular,np,svp).
 sustantivo([Numero,calorias|Resto],Resto,femenino,plural,np,rn):-number(Numero).
 sustantivo([Numero,veces,a,la,semana|Resto],Resto,masculino,plural,np,nv):-number(Numero),Numero\==1.
@@ -205,18 +234,13 @@ adjetivo([paleo|Resto],Resto,femenino,singular,np).
 adjetivo([sobrepeso|Resto],Resto,femenino,singular,np).
 adjetivo([normal|Resto],Resto,femenino,singular,np).
 adjetivo([keto|Resto],Resto,femenino,singular,np).
-adjetivo([vegetariano|Resto],Resto,femenino,singular,np).
-adjetivo([bajo,en,grasas|Resto],Resto,femenino,singular,np).
-adjetivo([mediterraneo|Resto],Resto,femenino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
 verbo([hago|Resto],Resto,singular,yo,dep,hacerPresentePP).
 verbo([hacer|Resto],Resto,singular,me,dep,hacerPresente).
 verbo([practico|Resto],Resto,singular,yo,dep,hacerPresentePP).
-verbo([corro|Resto],Resto,singular,yo,indep,actividadPresentePP).
-verbo([entreno|Resto],Resto,singular,yo,indep,actividadPresentePP).
-verbo([nado|Resto],Resto,singular,yo,indep,actividadPresentePP).
+verbo([entreno|Resto],Resto,singular,yo,dep,hacerPresentePP).
 verbo([tengo|Resto],Resto,singular,yo,dep,tenerPresente).
 verbo([estoy|Resto],Resto,singular,yo,dep,estarPresente).
 verbo([gustaria|Resto],Resto,singular,me,superdep,agradarFuturo).
@@ -244,7 +268,6 @@ agradecimiento([gracias|Resto],Resto,femenino).
 agradecimiento([muchas,gracias|Resto],Resto,femenino).
 agradecimiento([te,agradezco|Resto],Resto,masculino).
 agradecimiento([te,agradezco,mucho|Resto],Resto,masculino).
-agradecimiento([pura,vida|Resto],Resto,masculino).
 
 % Actividades
 % ([Actividad|Resto],Resto,Genero)
@@ -283,10 +306,9 @@ condicion([hipercolesterolemia|Resto],Resto,femenino).
 condicion([diabetes|Resto],Resto,femenino).
 condicion([obesidad|Resto],Resto,femenino).
 condicion([desnutricion|Resto],Resto,femenino).
-condicion([intolerancia_gluten|Resto],Resto,femenino).
+condicion([intolerancia,al,gluten|Resto],Resto,femenino).
 
-
-% Saludo
+% Saludos
 % ([Saludo|Resto],Resto)
 saludo([hola|Resto],Resto).
 saludo([saludos|Resto],Resto).
