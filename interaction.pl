@@ -1,5 +1,6 @@
 :- dynamic lista_coincidencias/1.  % Declarar como dinámica
 :- consult('database.pl').  % Cargar la base de datos.
+:- consult('bnf_final_code.pl').
 
 lista_animales([perro, leon, gato, pez]).
 emociones([felicidad, tristeza, ira, sorpresa, miedo]).
@@ -15,7 +16,7 @@ inicio :-
 
 conversacion:-
     read_line_to_string(user_input, Mensaje),
-    %PASA POR EL BNF
+    bnf_verif(Mensaje),
     (verifica_negaciones(Mensaje);
     verifica_coincidencias(Mensaje);
     genera_respuesta(Mensaje)), nl,
@@ -55,19 +56,24 @@ verifica_preferencia(Mensaje) :-
 
 realizar_preguntas:-
     (write('Tienes algun padecimiento?'),nl,
-    read_line_to_string(user_input, Mensaje),
+    read_line_to_string(user_input,Mensaje),
+    bnf_verif(Mensaje),
     verifica_padecimiento(Mensaje)),
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
+    bnf_verif(Mensaje2),
     verifica_dieta(Mensaje2)),
     (write('practicas algun deporte?'),nl,
     read_line_to_string(user_input, Mensaje4),
+    bnf_verif(Mensaje4),
     verifica_deporte(Mensaje4)),
     (write('cual es tu nivel de ejercicio?'),nl,
     read_line_to_string(user_input, Mensaje3),
+    bnf_verif(Mensaje3),
     verifica_actividad(Mensaje3)),
     (write('tienes una cantidad de calorias en mente?'),nl,
     read_line_to_string(user_input, Mensaje5),
+    bnf_verif(Mensaje5),
     verifica_calorias(Mensaje5)),
     lista_coincidencias(Lista1),
     dieta(Lista2),
