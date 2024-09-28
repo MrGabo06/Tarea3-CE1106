@@ -34,6 +34,12 @@ verifica(Oracion):- oracion(Oracion,[]).
 oracion(Completa,Resto):- acept_neg(Completa,Resto),!.
 oracion(Completa,Resto):- acept_neg(Completa,Interm),oracion(Interm,Resto),!.
 
+% Respuesta directa nivel de experiencia
+oracion(Completa,Resto):- nivel_exp(Completa,Resto),!.
+
+% Respuesta directa dieta
+oracion(Completa,Resto):- adjetivo(Completa,Resto,_,_,_),!.
+
 % Oracion de condicion o actividad
 oracion(Completa,Resto):- condicion(Completa,Resto,_),!.
 oracion(Completa,Resto):- actividad(Completa,Resto,_),!.
@@ -192,7 +198,6 @@ persona([me|Resto],Resto,masculino,singular,me).
 
 % Adjetivos
 % ([Adjetivo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np))
-adjetivo([intenso|Resto],Resto,masculino,singular,np).
 adjetivo([saludable|Resto],Resto,masculino,singular,np).
 adjetivo([saludable|Resto],Resto,femenino,singular,np).
 adjetivo([keto|Resto],Resto,femenino,singular,np).
@@ -205,12 +210,12 @@ adjetivo([mediterranea|Resto],Resto,femenino,singular,np).
 adjetivo([carnivora|Resto],Resto,femenino,singular,np).
 adjetivo([gluten,free|Resto],Resto,femenino,singular,np).
 adjetivo([paleo|Resto],Resto,femenino,singular,np).
-adjetivo([sobrepeso|Resto],Resto,masculino,singular,np).
-adjetivo([normal|Resto],Resto,masculino,singular,np).
-adjetivo([keto|Resto],Resto,masculino,singular,np).
-adjetivo([vegetariano|Resto],Resto,masculino,singular,np).
-adjetivo([bajo,en,grasas|Resto],Resto,masculino,singular,np).
-adjetivo([mediterraneo|Resto],Resto,masculino,singular,np).
+adjetivo([sobrepeso|Resto],Resto,femenino,singular,np).
+adjetivo([normal|Resto],Resto,femenino,singular,np).
+adjetivo([keto|Resto],Resto,femenino,singular,np).
+adjetivo([vegetariano|Resto],Resto,femenino,singular,np).
+adjetivo([bajo,en,grasas|Resto],Resto,femenino,singular,np).
+adjetivo([mediterraneo|Resto],Resto,femenino,singular,np).
 
 % Verbos
 % ([Verbo|Resto],Resto,Cantidad(plural/singular),Pronombre,Dependencia,Familia)
@@ -290,7 +295,11 @@ saludo([saludos|Resto],Resto).
 saludo([buenas,tardes|Resto],Resto).
 saludo([buenos,dias|Resto],Resto).
 
-
+% Niveles de experiencia en el ejercicio
+% ([Nivel|Resto],Resto)
+nivel_exp([inicial|Resto],Resto).
+nivel_exp([intermedio|Resto],Resto).
+nivel_exp([avanzado|Resto],Resto).
 
 
 % Funcion para que la lista que se le envie al BNF sea compuesta por atomos unicamente
