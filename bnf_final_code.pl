@@ -239,7 +239,7 @@ verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 verbo([habia|Resto],Resto,singular,yo,superdep,haberPasadoS).
 verbo([pensado|Resto],Resto,singular,yo,dep,pensarPasado).
 verbo([realizar|Resto],Resto,singular,me,dep,realizarPresente).
-verbo([realizo|Resto],Resto,singular,yo,indep,hacerPresentePP).
+verbo([realizo|Resto],Resto,singular,yo,dep,hacerPresentePP).
 verbo([deseo|Resto],Resto,singular,yo,superdep,quererPresentePP).
 
 % Agradecimientos
