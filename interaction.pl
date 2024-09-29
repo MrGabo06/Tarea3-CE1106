@@ -59,52 +59,52 @@ verifica_preferencia(Mensaje) :-
 realizar_pregunta_alimento:-
     (write('Tienes algun alimento que prefieras no comer?'),nl,
     read_line_to_string(user_input, Mensaje6),
-    (bnf_verif(Mensaje6);
+    (bnf_verif(Mensaje6),!;
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_alimento),
     verifica_alimentos(Mensaje6)),
-    realizar_pregunta_padecimiento.
+    realizar_pregunta_padecimiento,!.
 
 realizar_pregunta_padecimiento:-
     (write('Tienes algun padecimiento?'),nl,
     read_line_to_string(user_input,Mensaje),
-   (bnf_verif(Mensaje);
+   (bnf_verif(Mensaje),!;
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_padecimiento),
     verifica_padecimiento(Mensaje)),
-    realizar_pregunta_dieta.
+    realizar_pregunta_dieta,!.
 
 realizar_pregunta_dieta:-
     (write('Tienes alguna dieta en mente?'),nl,
     read_line_to_string(user_input, Mensaje2),
-    (bnf_verif(Mensaje2);
+    (bnf_verif(Mensaje2),!;
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_dieta),
     verifica_dieta(Mensaje2)),
-    realizar_pregunta_deporte.
+    realizar_pregunta_deporte,!.
 
 realizar_pregunta_deporte:-
     (write('practicas algun deporte?'),nl,
     read_line_to_string(user_input, Mensaje4),
-    (bnf_verif(Mensaje4);
+    (bnf_verif(Mensaje4),!;
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_deporte),
     verifica_deporte(Mensaje4)),
-    realizar_pregunta_nivel.
+    realizar_pregunta_nivel,!.
 
 realizar_pregunta_nivel:-
     (write('cual es tu nivel de ejercicio?'),nl,
     read_line_to_string(user_input, Mensaje3),
-    (bnf_verif(Mensaje3);
+    (bnf_verif(Mensaje3),!;
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_nivel),
     verifica_actividad(Mensaje3)),
-    realizar_pregunta_calorias.
+    realizar_pregunta_calorias,!.
 
 realizar_pregunta_calorias:-
     (write('tienes una cantidad de calorias en mente?'),nl,
     read_line_to_string(user_input, Mensaje5),
-    (bnf_verif(Mensaje5);
+    (bnf_verif(Mensaje5),!;
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_calorias),
     verifica_calorias(Mensaje5)),
