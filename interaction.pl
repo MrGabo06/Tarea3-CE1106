@@ -108,6 +108,9 @@ realizar_pregunta_calorias:-
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_calorias),
     verifica_calorias(Mensaje5)),
+    busca_dieta.
+
+busca_dieta:-
     lista_coincidencias(Lista1),
     dieta(Lista2),
     compara_dieta(Lista1, Lista2);
