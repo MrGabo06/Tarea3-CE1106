@@ -80,6 +80,13 @@ oracion(Completa,Resto):- agradecimiento(Completa,Resto,_),!.
 oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),es_palabra(nutritec,Interm,Interm1),oracion(Interm1,Resto),!.
 oracion(Completa,Resto):- agradecimiento(Completa,Interm,_),oracion(Interm,Resto),!.
 
+%Oraciones de despedida
+oracion(Completa,Resto):- despedida(Completa,Interm),es_palabra(nutritec,Interm,Resto),!.
+oracion(Completa,Resto):- despedida(Completa,Interm),es_palabra(nutritec,Interm,Interm1),oracion(Interm1,Resto),!.
+oracion(Completa,Resto):- despedida(Completa,Resto),!.
+oracion(Completa,Resto):- despedida(Completa,Interm),oracion(Interm,Resto),!.
+
+
 
 % Estructuras de predicados
 % Predicados de un sólo verbo independiente
@@ -298,7 +305,6 @@ actividad([escalada|Resto],Resto,masculino).
 actividad([surf|Resto],Resto,masculino).
 actividad([boxeo|Resto],Resto,masculino).
 actividad([karate|Resto],Resto,masculino).
-
 % Condiciones
 % ([Condicion|Resto],Resto,Genero)
 condicion([dislipidemia|Resto],Resto,femenino).
@@ -314,6 +320,17 @@ saludo([hola|Resto],Resto).
 saludo([saludos|Resto],Resto).
 saludo([buenas,tardes|Resto],Resto).
 saludo([buenos,dias|Resto],Resto).
+
+%Despedidas
+%([Despedida|Resto],Resto)
+despedida([adios|Resto],Resto).
+despedida([chao|Resto],Resto).
+despedida([hasta,luego|Resto],Resto).
+despedida([cuidate|Resto],Resto).
+despedida([bye|Resto],Resto).
+despedida([adieu|Resto],Resto).
+
+
 
 % Niveles de experiencia en el ejercicio
 % ([Nivel|Resto],Resto)
