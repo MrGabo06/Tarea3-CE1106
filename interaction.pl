@@ -26,7 +26,7 @@ conversacion:-
 
 verifica_negaciones(Mensaje):-
     negaciones(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra), nl.
+    verificar_palabra(Mensaje, Lista, _), nl.
     
 
 genera_respuesta(Mensaje):-
@@ -37,22 +37,22 @@ genera_respuesta(Mensaje):-
 
 verifica_agradecimiento(Mensaje):-
     agradecimientos(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
+    verificar_palabra(Mensaje, Lista, _),
     write('Es un placer serte util').
 
 verifica_saludo(Mensaje) :-
     saludos(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
+    verificar_palabra(Mensaje, Lista, _),
     write('Hola, como puedo ayudarte hoy?').
 
 verifica_despedida(Mensaje) :-
     despedidas(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
+    verificar_palabra(Mensaje, Lista, _),
     write('Adios, que te vaya bien'), halt.
 
 verifica_preferencia(Mensaje) :-
     preferencias(Lista),
-    verificar_palabra(Mensaje, Lista, Palabra),
+    verificar_palabra(Mensaje, Lista, _),
     write('Excelente iniciativa, vamos a encontrar la mejor alternativa para ti'),nl,
     realizar_pregunta_alimento.
 
@@ -114,10 +114,10 @@ busca_dieta:-
     lista_coincidencias(Lista1),
     dieta(Lista2),
     compara_dieta(Lista1, Lista2);
-    lista_coincidencias(Lista3),
-    dieta(Lista4),
-    no_dieta(Lista3,Lista4);
-    dieta_random(Lista3,Lista4).
+    lista_coincidencias(_),
+    dieta(_),
+    no_dieta(_,_);
+    dieta_random(_,_).
 
 verifica_coincidencias(Mensaje) :-
     ( verifica_padecimiento(Mensaje),

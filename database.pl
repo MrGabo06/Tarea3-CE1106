@@ -1,16 +1,16 @@
 % Base de datos de nutricionista
 
-% Tipo de Dieta: nombre, descripciÃ³n.
-tipo_dieta([keto, 'Dieta cetogÃ©nica que limita los carbohidratos para inducir cetosis.']).
-tipo_dieta([proteica, 'Dieta rica en proteÃ­nas para aumentar la masa muscular.']).
+% Tipo de Dieta: nombre, descripción.
+tipo_dieta([keto, 'Dieta cetogí©nica que limita los carbohidratos para inducir cetosis.']).
+tipo_dieta([proteica, 'Dieta rica en proteí­nas para aumentar la masa muscular.']).
 tipo_dieta([vegetariana, 'Dieta basada en plantas, excluyendo carne y pescado.']).
 tipo_dieta([alcalina, 'Dieta que busca equilibrar el pH del cuerpo.']).
 tipo_dieta([baja_en_grasas, 'Dieta baja en grasas saturadas para controlar el colesterol.']).
 tipo_dieta([vegana, 'Dieta sin productos de origen animal, rica en plantas.']).
-tipo_dieta([mediterranea, 'Dieta inspirada en la cocina tradicional mediterrÃ¡nea, rica en grasas saludables.']).
+tipo_dieta([mediterranea, 'Dieta inspirada en la cocina tradicional mediterránea, rica en grasas saludables.']).
 tipo_dieta([carnivora, 'Dieta basada en carne y productos animales, excluyendo vegetales.']).
 tipo_dieta([gluten_free, 'Dieta sin gluten para personas con intolerancia.']).
-tipo_dieta([paleo, 'Dieta basada en alimentos paleolÃ­ticos, excluyendo granos y procesados.']).
+tipo_dieta([paleo, 'Dieta basada en alimentos paleolí­ticos, excluyendo granos y procesados.']).
 
 % Lista ampliada de saludos (saludos)
 saludos([hola, buenas, saludos, hey, buenos]).
@@ -27,10 +27,10 @@ negaciones([no, nunca, jamas, tampoco, never, imposible, nada, negativo]).
 agradecimientos([gracias, agradezco]).
 
 
-% Padecimiento: nombre, descripciÃ³n, dietas recomendadas.
+% Padecimiento: nombre, descripción, dietas recomendadas.
 padecimiento([dislipidemia, 'Problemas del control del colesterol', [baja_en_grasas, mediterranea]]).
 padecimiento([hipercolesterolemia, 'Aumento de colesterol en la sangre', [vegana, vegetariana]]).
-padecimiento([diabetes, 'AlteraciÃ³n en los niveles de azÃºcar en la sangre', [baja_en_grasas, mediterranea]]).
+padecimiento([diabetes, 'Alteración en los niveles de azúcar en la sangre', [baja_en_grasas, mediterranea]]).
 padecimiento([obesidad, 'Exceso de grasa corporal', [keto, baja_en_grasas]]).
 padecimiento([desnutricion, 'Deficiencia de nutrientes', [proteica, carnivora]]).
 padecimiento([intolerancia_gluten, 'Intolerancia al gluten', [gluten_free, paleo]]).
@@ -40,32 +40,32 @@ nivel_actividad([inicial, '0','1','2']).
 nivel_actividad([intermedio, '3','4']).
 nivel_actividad([avanzado, '5','6','7']).
 
-%Actividades: nombre, descripciÃ³n.
-actividad([natacion, 'Actividad acuÃ¡tica que trabaja todos los mÃºsculos del cuerpo.']).
-actividad([correr, 'Actividad cardiovascular que mejora la resistencia y quema calorÃ­as.']).
+%Actividades: nombre, descripción.
+actividad([natacion, 'Actividad acuática que trabaja todos los músculos del cuerpo.']).
+actividad([correr, 'Actividad cardiovascular que mejora la resistencia y quema calorí­as.']).
 actividad([ciclismo, 'Actividad cardiovascular que mejora la resistencia y fortalece las piernas.']).
-actividad([yoga, 'Actividad que combina ejercicios de estiramiento y relajaciÃ³n.']).
+actividad([yoga, 'Actividad que combina ejercicios de estiramiento y relajación.']).
 actividad([pilates, 'Actividad que fortalece el core y mejora la flexibilidad.']).
 actividad([crossfit, 'Actividad de alta intensidad que combina ejercicios de fuerza y cardio.']).
-actividad([baile, 'Actividad cardiovascular que mejora la coordinaciÃ³n y quema calorÃ­as.']).
-actividad([entrenamiento_funcional, 'Actividad que trabaja todos los mÃºsculos del cuerpo y mejora la resistencia.']).
-actividad([zumba, 'Actividad cardiovascular que combina baile y ejercicios de tonificaciÃ³n.']).
+actividad([baile, 'Actividad cardiovascular que mejora la coordinación y quema calorí­as.']).
+actividad([entrenamiento_funcional, 'Actividad que trabaja todos los músculos del cuerpo y mejora la resistencia.']).
+actividad([zumba, 'Actividad cardiovascular que combina baile y ejercicios de tonificación.']).
 actividad([patinaje, 'Actividad que mejora la resistencia y fortalece las piernas.']).
-actividad([caminata, 'Actividad cardiovascular que mejora la resistencia y quema calorÃ­as.']).
-actividad([pesas, 'Actividad que fortalece los mÃºsculos y mejora la resistencia.']).
-actividad([futbol, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([baloncesto, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([voleibol, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([tenis, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([padel, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([squash, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([rugby, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([hockey, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([badminton, 'Actividad cardiovascular que mejora la resistencia y la coordinaciÃ³n.']).
+actividad([caminata, 'Actividad cardiovascular que mejora la resistencia y quema calorí­as.']).
+actividad([pesas, 'Actividad que fortalece los músculos y mejora la resistencia.']).
+actividad([futbol, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([baloncesto, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([voleibol, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([tenis, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([padel, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([squash, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([rugby, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([hockey, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
+actividad([badminton, 'Actividad cardiovascular que mejora la resistencia y la coordinación.']).
 actividad([escalada, 'Actividad que trabaja la fuerza y la resistencia.']).
-actividad([surf, 'Actividad acuÃ¡tica que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([boxeo, 'Actividad que mejora la resistencia y la coordinaciÃ³n.']).
-actividad([karate, 'Actividad que mejora la resistencia y la coordinaciÃ³n.']).
+actividad([surf, 'Actividad acuática que mejora la resistencia y la coordinación.']).
+actividad([boxeo, 'Actividad que mejora la resistencia y la coordinación.']).
+actividad([karate, 'Actividad que mejora la resistencia y la coordinación.']).
 actividad([atletismo, 'Actividad de correr rapido']).
 
 
@@ -115,7 +115,7 @@ Notas: Tomar mínimo 2.5 litros diarios de agua.']).
 dieta([carne,carnes,lacteos,mariscos,vegana, hipercolesterolemia, '1800', entrenamiento_funcional, yoga, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: Avena con leche de almendra, frutos rojos y semillas de lino.
 Merienda 1: Batido de proteinas veganas con espinacas.
-Almuerzo: Tofu (150g) con quinoa y brÃ³coli.
+Almuerzo: Tofu (150g) con quinoa y brócoli.
 Merienda 2: Hummus con zanahorias crudas.
 Cena: Lentejas estofadas con espinacas y tomate.
 Notas: Tomar minimo 2 litros diarios de agua.']).
@@ -132,8 +132,8 @@ dieta([vegetales,carnivora, desnutricion, '2500', pesas, crossfit, avanzado,'5',
 Desayuno: 4 claras de huevo con 200g de carne de res.
 Merienda 1: 30g de nueces.
 Almuerzo: Filete de res (200g) con espinacas.
-Merienda 2: 100g de jamÃ³n serrano.
-Cena: Chuleta de cerdo (250g) con espÃ¡rragos.
+Merienda 2: 100g de jamón serrano.
+Cena: Chuleta de cerdo (250g) con espárragos.
 Notas: Tomar mi­nimo 3 litros diarios de agua.']).
 
 dieta([carnes,gluten_free, intolerancia_gluten, '2000', baile, zumba, avanzado,'5','6','7', 'Plan de Alimentacion:
@@ -161,7 +161,7 @@ Merienda 2: Yogur griego sin azúcar (100g).
 Cena: Salmón a la plancha (120g) con puré de patata.
 Notas: Tomar mínimo 2.5 litros de agua.']).
 
-% Dieta MediterrÃ¡nea - Dislipidemia, actividad avanzada, 2200 kcal
+% Dieta Mediterránea - Dislipidemia, actividad avanzada, 2200 kcal
 dieta([carne,carnes,mediterranea, dislipidemia, '2200', natacion, ciclismo, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: Avena con nueces y fresas.
 Merienda 1: 1 rebanada de pan integral con tomate.
@@ -188,7 +188,7 @@ Merienda 2: Zanahorias crudas con hummus.
 Cena: Tofu a la plancha (120g) con brócoli.
 Notas: Tomar mínimo 2 litros de agua.']).
 
-% Dieta Vegetariana - DesnutriciÃ³n, actividad intermedia, 2300 kcal
+% Dieta Vegetariana - Desnutrición, actividad intermedia, 2300 kcal
 dieta([carne,carnes,vegetariana, desnutricion, '2300', pilates, entrenamiento_funcional, intermedio,'3','4', 'Plan de Alimentacion:
 Desayuno: Avena con leche de almendra y frutos secos.
 Merienda 1: 15 almendras.
@@ -197,7 +197,7 @@ Merienda 2: Pudding de chía con nueces.
 Cena: Hamburguesa de lentejas con espárragos.
 Notas: Tomar mínimo 2.5 litros de agua.']).
 
-% Dieta CarnÃ­vora - Diabetes, actividad avanzada, 2400 kcal
+% Dieta Carní­vora - Diabetes, actividad avanzada, 2400 kcal
 dieta([vegetales,carnivora, diabetes, '2400', pesas, ciclismo, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: 3 claras de huevo con 150g de carne de res.
 Merienda 1: 20g de nueces.
@@ -224,7 +224,7 @@ Merienda 2: Manzana con mantequilla de almendra.
 Cena: Pechuga de pollo al horno (150g) con calabacín.
 Notas: Tomar mínimo 2 litros diarios de agua.']).
 
-% Dieta Vegana - DesnutriciÃ³n, actividad avanzada, 2300 kcal
+% Dieta Vegana - Desnutrición, actividad avanzada, 2300 kcal
 dieta([carne,carnes,vegana, desnutricion, '2300', entrenamiento_funcional, pesas, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: Avena con leche de almendra, plátano y nueces.
 Merienda 1: Batido de proteínas veganas con espinacas.
@@ -233,7 +233,7 @@ Merienda 2: Hummus con zanahorias crudas.
 Cena: Frijoles negros con espinacas y tomate.
 Notas: Tomar mínimo 3 litros diarios de agua.']).
 
-% Dieta MediterrÃ¡nea - Obesidad, actividad inicial, 2000 kcal
+% Dieta Mediterránea - Obesidad, actividad inicial, 2000 kcal
 dieta([mariscos,mediterranea, obesidad, '2000', caminata, yoga, inicial,'0','1','2', 'Plan de Alimentacion:
 Desayuno: Yogur griego con nueces y fresas.
 Merienda 1: 10 almendras.
