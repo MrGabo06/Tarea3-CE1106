@@ -114,11 +114,11 @@ Notas: Tomar mínimo 2.5 litros diarios de agua.']).
 
 dieta([carne,carnes,lacteos,mariscos,vegana, hipercolesterolemia, '1800', entrenamiento_funcional, yoga, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: Avena con leche de almendra, frutos rojos y semillas de lino.
-Merienda 1: Batido de proteÃ­nas veganas con espinacas.
+Merienda 1: Batido de proteinas veganas con espinacas.
 Almuerzo: Tofu (150g) con quinoa y brÃ³coli.
 Merienda 2: Hummus con zanahorias crudas.
 Cena: Lentejas estofadas con espinacas y tomate.
-Notas: Tomar mÃ­nimo 2 litros diarios de agua.']).
+Notas: Tomar minimo 2 litros diarios de agua.']).
 
 dieta([vegetales,lacteos,mediterranea, diabetes, '2200', caminata, patinaje, inicial, '0','1','2','Plan de Alimentacion:
 Desayuno: Yogur de coco con nueces y fresas.
@@ -134,7 +134,7 @@ Merienda 1: 30g de nueces.
 Almuerzo: Filete de res (200g) con espinacas.
 Merienda 2: 100g de jamÃ³n serrano.
 Cena: Chuleta de cerdo (250g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
+Notas: Tomar mi­nimo 3 litros diarios de agua.']).
 
 dieta([carnes,gluten_free, intolerancia_gluten, '2000', baile, zumba, avanzado,'5','6','7', 'Plan de Alimentacion:
 Desayuno: Pan sin gluten con aguacate y tomate.
@@ -244,190 +244,11 @@ Notas: Tomar mínimo 2.5 litros diarios de agua.']).
 
 %HASTA AQUI LAS DIETAS CAMBIADAS
 
-% Dieta Alcalina - Hipercolesterolemia, actividad avanzada, 2200
-dieta([alcalina, hipercolesterolemia, '2200', natacion, ciclismo, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: Smoothie de espinacas, plÃ¡tano, y leche de almendra.
-Merienda 1: 10 almendras.
-Almuerzo: Ensalada de garbanzos, aguacate y espinacas.
-Merienda 2: Batido de proteÃ­nas vegano.
-Cena: Pescado (150g) con brÃ³coli y espinacas.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
 
-% Dieta Paleo - Intolerancia al Gluten, actividad intermedia, 2000
-dieta([paleo, intolerancia_gluten, '2000', entrenamiento_funcional, yoga, intermedio,'3','4', 'Plan de Alimentacion:
-Desayuno: 2 huevos con espinacas y aguacate.
-Merienda 1: 10 nueces.
-Almuerzo: Pollo a la parrilla (150g) con ensalada de espinacas y pepino.
-Merienda 2: Manzana con crema de almendra.
-Cena: Pescado a la parrilla (150g) con espÃ¡rragos asados.
-Notas: Tomar mÃ­nimo 2.5 litros diarios de agua.']).
-
-% Dieta CarnÃ­vora - Dislipidemia, actividad avanzada, 2500
-dieta([carnivora, dislipidemia, '2500', pesas, ciclismo, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: 3 claras de huevo con carne de res (150g).
-Merienda 1: 20g de nueces.
-Almuerzo: Bistec de res (200g) con espinacas.
-Merienda 2: JamÃ³n serrano con queso bajo en grasa.
-Cena: Filete de cerdo (200g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 3.5 litros diarios de agua.']).
-
-% Dieta Keto - Hipercolesterolemia, actividad intermedia, 1800
-dieta([keto, hipercolesterolemia, '1800', caminata, yoga, intermedio,'3','4', 'Plan de Alimentacion:
-Desayuno: 2 huevos revueltos con espinacas y aguacate.
-Merienda 1: 10 almendras.
-Almuerzo: Ensalada de pollo (120g) con pepino y aguacate.
-Merienda 2: Yogur griego bajo en grasa.
-Cena: SalmÃ³n a la parrilla (150g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 2.5 litros de agua.']).
-
-% Dieta MediterrÃ¡nea - Hipercolesterolemia, actividad inicial, 2000
-dieta([mediterranea, hipercolesterolemia, '2000', caminata, yoga, inicial,'0','1','2', 'Plan de Alimentacion:
+dieta_predefinida([mariscos,mediterranea, obesidad, '2000', caminata, yoga, inicial,'0','1','2', 'Plan de Alimentacion:
 Desayuno: Yogur griego con nueces y fresas.
-Merienda 1: 1 tostada integral con aguacate.
-Almuerzo: AtÃºn (150g) con ensalada de espinacas y tomate.
-Merienda 2: 10 almendras.
-Cena: Pescado al horno (120g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 2.5 litros de agua.']).
-
-% Dieta Proteica - Diabetes, actividad avanzada, 2500
-dieta([proteica, diabetes, '2500', crossfit, pesas, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: 3 claras de huevo con aguacate.
-Merienda 1: Batido de proteÃ­nas con almendras.
-Almuerzo: Pollo a la parrilla (200g) con quinoa y espinacas.
-Merienda 2: Yogur griego sin azÃºcar.
-Cena: Bistec (200g) con espÃ¡rragos asados.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
-
-% Dieta Vegana - Intolerancia al Gluten, actividad avanzada, 2200
-dieta([vegana, intolerancia_gluten, '2200', entrenamiento_funcional, ciclismo, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: Avena con leche de almendra, plÃ¡tano y nueces.
-Merienda 1: Batido de proteÃ­nas veganas con espinacas.
-Almuerzo: Tofu (150g) con quinoa y espinacas.
-Merienda 2: Zanahorias crudas con hummus.
-Cena: Lentejas con espinacas y tomate.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
-
-% Dieta Baja en Grasas - Obesidad, actividad inicial, 1800
-dieta([baja_en_grasas, obesidad, '1800', caminata, yoga, inicial,'0','1','2', 'Plan de Alimentacion:
-Desayuno: Smoothie de espinacas con plÃ¡tano y leche de almendra.
-Merienda 1: 10 nueces.
-Almuerzo: Pollo a la parrilla (150g) con ensalada de pepino y espinacas.
-Merienda 2: Yogur bajo en grasa.
-Cena: Pescado a la plancha (120g) con espÃ¡rragos asados.
-Notas: Tomar mÃ­nimo 2 litros diarios de agua.']).
-
-% Dieta Alcalina - DesnutriciÃ³n, actividad intermedia, 2300
-dieta([alcalina, desnutricion, '2300', pilates, caminata, intermedio,'3','4', 'Plan de Alimentacion:
-Desayuno: Smoothie de espinacas, plÃ¡tano y leche de almendra.
-Merienda 1: 15 almendras.
-Almuerzo: Ensalada de garbanzos con espinacas y aguacate.
-Merienda 2: Batido de proteÃ­nas vegano.
-Cena: Pescado al horno (150g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 3 litros de agua.']).
-
-% Dieta Paleo - Diabetes, actividad intermedia, 2200
-dieta([paleo, diabetes, '2200', natacion, ciclismo, intermedio,'3','4', 'Plan de Alimentacion:
-Desayuno: 2 huevos con espinacas y aguacate.
-Merienda 1: 10 nueces.
-Almuerzo: Pollo a la parrilla (150g) con ensalada de espinacas.
-Merienda 2: Zanahorias crudas con hummus.
-Cena: SalmÃ³n a la parrilla (150g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
-
-% Dieta Keto - Diabetes, actividad avanzada, 2500
-dieta([keto, diabetes, '2500', ciclismo, crossfit, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: 3 huevos revueltos con espinacas y aguacate.
-Merienda 1: 20g de nueces.
-Almuerzo: Pollo a la parrilla (200g) con espÃ¡rragos.
-Merienda 2: Yogur griego sin azÃºcar con almendras.
-Cena: SalmÃ³n al horno (200g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 3.5 litros diarios de agua.']).
-
-% Dieta Vegana - DesnutriciÃ³n, actividad inicial, 2300
-dieta([vegana, desnutricion, '2300', caminata, yoga, inicial,'0','1','2', 'Plan de Alimentacion:
-Desayuno: Smoothie de avena, espinacas y leche de almendra.
-Merienda 1: 15 almendras.
-Almuerzo: Ensalada de garbanzos con quinoa y espinacas.
-Merienda 2: Batido de proteÃ­nas vegano.
-Cena: Tofu (150g) con espÃ¡rragos y ensalada de espinacas.
-Notas: Tomar mÃ­nimo 3 litros de agua.']).
-
-% Dieta MediterrÃ¡nea - Obesidad, actividad intermedia, 2000
-dieta([mediterranea, obesidad, '2000', pilates, caminata, intermedio,'3','4', 'Plan de Alimentacion:
-Desayuno: Yogur griego con fresas y nueces.
 Merienda 1: 10 almendras.
-Almuerzo: AtÃºn a la parrilla (150g) con ensalada de espinacas.
-Merienda 2: Manzana con crema de almendra.
-Cena: Pescado al horno (150g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 2.5 litros de agua.']).
-
-% Dieta Proteica - Dislipidemia, actividad avanzada, 2500
-dieta([proteica, dislipidemia, '2500', crossfit, pesas, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: 3 claras de huevo con espinacas.
-Merienda 1: Batido de proteÃ­nas con almendras.
-Almuerzo: Bistec de res (200g) con quinoa y espinacas.
-Merienda 2: Yogur griego bajo en grasa.
-Cena: Pollo a la parrilla (200g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
-
-% Dieta Baja en Grasas - Diabetes, actividad intermedia, 2000
-dieta([baja_en_grasas, diabetes, '2000', yoga, natacion, intermedio, '3','4', 'Plan de Alimentacion:
-Desayuno: Smoothie de plÃ¡tano y espinacas con leche de almendra.
-Merienda 1: 10 nueces.
-Almuerzo: Pollo a la parrilla (150g) con ensalada de espinacas.
-Merienda 2: Manzana con crema de almendra.
-Cena: Pescado al horno (120g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 2.5 litros diarios de agua.']).
-
-% Dieta Alcalina - Intolerancia al Gluten, actividad avanzada, 2200
-dieta([alcalina, intolerancia_gluten, '2200', ciclismo, natacion, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: Smoothie de espinacas, plÃ¡tano y leche de almendra.
-Merienda 1: 15 almendras.
-Almuerzo: Ensalada de garbanzos con espinacas y pepino.
-Merienda 2: Batido de proteÃ­nas vegano.
-Cena: Pescado a la parrilla (150g) con brÃ³coli y espinacas.
-Notas: Tomar mÃ­nimo 3 litros de agua.']).
-
-% Dieta CarnÃ­vora - Hipercolesterolemia, actividad inicial, 2300
-dieta([carnivora, hipercolesterolemia, '2300', caminata, yoga, inicial,'0','1','2', 'Plan de Alimentacion:
-Desayuno: 3 claras de huevo con carne de res (150g).
-Merienda 1: 20g de nueces.
-Almuerzo: Pollo a la parrilla (200g) con espinacas.
-Merienda 2: JamÃ³n serrano con queso bajo en grasa.
-Cena: Filete de cerdo (200g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
-
-% Dieta MediterrÃ¡nea - DesnutriciÃ³n, actividad avanzada, 2500
-dieta([mediterranea, desnutricion, '2500', ciclismo, pesas, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: Avena con fresas, nueces y leche de almendra.
-Merienda 1: 15 almendras.
-Almuerzo: AtÃºn a la parrilla (200g) con ensalada de espinacas.
-Merienda 2: Yogur griego con nueces.
-Cena: Pescado al horno (200g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 3.5 litros diarios de agua.']).
-
-% Dieta Keto - Dislipidemia, actividad intermedia, 2000
-dieta([keto, dislipidemia, '2000', yoga, pilates, intermedio, '3','4', 'Plan de Alimentacion:
-Desayuno: 2 huevos revueltos con aguacate.
-Merienda 1: 10 almendras.
-Almuerzo: Ensalada de pollo (150g) con espinacas y pepino.
-Merienda 2: Yogur griego bajo en grasa.
-Cena: SalmÃ³n a la parrilla (150g) con espÃ¡rragos.
-Notas: Tomar mÃ­nimo 2.5 litros de agua.']).
-
-% Dieta Vegana - Diabetes, actividad avanzada, 2200
-dieta([vegana, diabetes, '2200', crossfit, entrenamiento_funcional, avanzado,'5','6','7', 'Plan de Alimentacion:
-Desayuno: Smoothie de avena, plÃ¡tano y leche de almendra.
-Merienda 1: 15 almendras.
-Almuerzo: Ensalada de garbanzos con espinacas.
-Merienda 2: Batido de proteÃ­nas vegano.
-Cena: Tofu (150g) con espÃ¡rragos asados y brÃ³coli.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
-
-dieta_predefinida([carnivora, hipercolesterolemia, '2300', caminata, yoga, inicial, '0','1','2', 'Plan de Alimentacion:
-Desayuno: 3 claras de huevo con carne de res (150g).
-Merienda 1: 20g de nueces.
-Almuerzo: Pollo a la parrilla (200g) con espinacas.
-Merienda 2: JamÃ³n serrano con queso bajo en grasa.
-Cena: Filete de cerdo (200g) con brÃ³coli.
-Notas: Tomar mÃ­nimo 3 litros diarios de agua.']).
+Almuerzo: Ensalada con pollo a la parrilla, aguacate y espinacas.
+Merienda 2: 1 manzana.
+Cena: Filete de ternera (120g) con espárragos al vapor.
+Notas: Tomar mínimo 2.5 litros diarios de agua.']).
