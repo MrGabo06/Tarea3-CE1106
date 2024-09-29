@@ -66,6 +66,7 @@ actividad([escalada, 'Actividad que trabaja la fuerza y la resistencia.']).
 actividad([surf, 'Actividad acuÃ¡tica que mejora la resistencia y la coordinaciÃ³n.']).
 actividad([boxeo, 'Actividad que mejora la resistencia y la coordinaciÃ³n.']).
 actividad([karate, 'Actividad que mejora la resistencia y la coordinaciÃ³n.']).
+actividad([atletismo, 'Actividad de correr rapido']).
 
 
 calorias(['1800','2000','2200','2300','2400','2500']).

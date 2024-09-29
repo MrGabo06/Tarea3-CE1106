@@ -185,6 +185,7 @@ objetivo([subir,musculo|Resto],Resto).
 objetivo([perder,grasa|Resto],Resto).
 objetivo([bajar,grasa|Resto],Resto).
 objetivo([mantener,mi,peso|Resto],Resto).
+objetivo([bajar,de,peso|Resto],Resto).
 
 % Articulos:
 % ([Articulo|Resto],Resto,Genero(masculino/femenino),Cantidad(plural/singular),Pronombre(np),Definicion(def/indef))
