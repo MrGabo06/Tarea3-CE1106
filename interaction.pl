@@ -16,7 +16,7 @@ inicio :-
 
 conversacion:-
     read_line_to_string(user_input, Mensaje),
-    (bnf_verif(Mensaje);
+    (bnf_verif(Mensaje),!;
     write('Lo siento, no te entendi'),nl,
     conversacion),
     (verifica_negaciones(Mensaje);
@@ -57,7 +57,7 @@ verifica_preferencia(Mensaje) :-
     realizar_pregunta_alimento.
 
 realizar_pregunta_alimento:-
-    (write('Tienes algun alimento que prefieras no comer?'),nl,
+    (write('Tienes preferencias con algun alimento?'),nl,
     read_line_to_string(user_input, Mensaje6),
     (bnf_verif(Mensaje6),!;
     write('Lo siento, no te entendi'),nl,
@@ -108,7 +108,7 @@ realizar_pregunta_calorias:-
     write('Lo siento, no te entendi'),nl,
     realizar_pregunta_calorias),
     verifica_calorias(Mensaje5)),
-    busca_dieta.
+    busca_dieta,!.
 
 busca_dieta:-
     lista_coincidencias(Lista1),
